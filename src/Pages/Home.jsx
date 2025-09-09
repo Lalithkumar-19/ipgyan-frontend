@@ -5,7 +5,7 @@ import OurLawyers from '../Components/OurLawyers'
 import Testimonial from '../Components/Testimonial'
 
 import Faq from '../Components/Faq'
-import BlogSection from '../Components/Blogsection'
+import BlogSection from '../Components/BlogSection'
 
 const Home = () => {
     return (
