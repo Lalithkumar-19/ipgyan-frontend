@@ -3,8 +3,9 @@ import Hero from '../Components/Hero'
 import Services from '../Components/Services'
 import OurLawyers from '../Components/OurLawyers'
 import Testimonial from '../Components/Testimonial'
-import BlogSection from '../Components/Blogsection'
+
 import Faq from '../Components/Faq'
+import BlogSection from '../Components/Blogsection'
 
 const Home = () => {
     return (
