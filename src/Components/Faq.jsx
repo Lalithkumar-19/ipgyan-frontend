@@ -71,16 +71,16 @@ const Faq = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="py-16 px-6 max-w-7xl mx-auto">
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section ref={sectionRef} className="py-8 md:py-12 lg:py-16 px-4 sm:px-6 md:px-12 lg:px-28 w-full mx-auto max-w-8xl">
+      <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
         {/* Left Column - FAQ Content */}
-        <div className="space-y-8">
+        <div className="space-y-6 md:space-y-8">
           {/* Header */}
           <div className="faq-header opacity-0 transform translate-y-8 transition-all duration-700">
-            <h2 className="text-amber-500 text-3xl md:text-4xl font-bold font-inria mb-4 ">
+            <h2 className="text-amber-500 text-center md:text-start text-3xl sm:text-3xl md:text-4xl font-bold font-inria mb-3 md:mb-4">
               FAQs
             </h2>
-            <p className="text-gray-600 text-lg leading-relaxed max-w-md">
+            <p className="text-gray-600 text-center md:text-start max-w-md text-xl sm:text-2xl md:text-4xl font-normal font-inria leading-tight">
               We've compiled responses to the questions we hear most 
               often to help you better understand our approach and 
               offerings.
@@ -88,7 +88,7 @@ const Faq = () => {
           </div>
 
           {/* FAQ Items */}
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {faqData.map((item, index) => (
               <div
                 key={index}
@@ -98,24 +98,24 @@ const Faq = () => {
                 <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
                   <button
                     onClick={() => toggleItem(index)}
-                    className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
+                    className="w-full px-4 sm:px-5 md:px-6 py-4 md:py-5 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
                   >
-                    <div className="flex items-center space-x-4">
-                      <div className="flex-shrink-0 w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center">
-                        <span className="text-white font-semibold text-sm">
+                    <div className="flex items-center space-x-3 md:space-x-4">
+                      <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-orange-400 rounded-full flex items-center justify-center">
+                        <span className="text-white font-semibold text-xs sm:text-sm">
                           {index + 1}
                         </span>
                       </div>
-                      <h3 className="text-gray-900 font-semibold text-base md:text-lg">
+                      <h3 className="text-gray-900 font-semibold text-sm sm:text-base md:text-lg">
                         {item.question}
                       </h3>
                     </div>
-                    <div className="flex-shrink-0 ml-4">
-                      <div className="w-6 h-6 bg-orange-400 rounded-full flex items-center justify-center">
+                    <div className="flex-shrink-0 ml-3 md:ml-4">
+                      <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6 bg-orange-400 rounded-full flex items-center justify-center">
                         {openItems[index] ? (
-                          <ChevronUp className="w-4 h-4 text-white" />
+                          <ChevronUp className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                         ) : (
-                          <ChevronDown className="w-4 h-4 text-white" />
+                          <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                         )}
                       </div>
                     </div>
@@ -125,9 +125,9 @@ const Faq = () => {
                   <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
                     openItems[index] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                   }`}>
-                    <div className="px-6 pb-5">
-                      <div className="pl-12">
-                        <p className="text-gray-600 leading-relaxed">
+                    <div className="px-4 sm:px-5 md:px-6 pb-4 md:pb-5">
+                      <div className="pl-0 sm:pl-8 md:pl-12">
+                        <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                           {item.answer}
                         </p>
                       </div>
@@ -140,14 +140,14 @@ const Faq = () => {
         </div>
 
         {/* Right Column - Image */}
-        <div className="lg:pl-8">
+        <div className="lg:pl-8 mt-8 lg:mt-0">
           <div className="relative">
             <img
               src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
               alt="Legal consultation"
-              className="w-full h-[500px] object-cover rounded-2xl shadow-xl"
+              className="w-full h-auto sm:h-[350px] md:h-[400px] lg:h-[500px] object-cover rounded-xl md:rounded-2xl shadow-lg md:shadow-xl"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl md:rounded-2xl"></div>
           </div>
         </div>
       </div>
@@ -161,6 +161,12 @@ const Faq = () => {
         .faq-item {
           transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), 
                       opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        @media (max-width: 640px) {
+          .faq-item:last-child {
+            margin-bottom: 0;
+          }
         }
       `}</style>
     </section>

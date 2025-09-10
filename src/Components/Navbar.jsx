@@ -11,6 +11,24 @@ const Navbar = () => {
         triggerOnce: false
     });
 
+    // Close menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target) && 
+                navbarRef.current && !navbarRef.current.contains(event.target)) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('touchstart', handleClickOutside);
+        
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
+        };
+    }, []);
+
     // Animation for navbar entry
     useEffect(() => {
         gsap.fromTo(navbarRef.current,
@@ -41,6 +59,8 @@ const Navbar = () => {
     // Mobile menu animation
     useEffect(() => {
         if (isMenuOpen) {
+            // Prevent body scrolling when menu is open
+            document.body.style.overflow = 'hidden';
             gsap.to(menuRef.current, {
                 height: "auto",
                 opacity: 1,
@@ -48,6 +68,8 @@ const Navbar = () => {
                 ease: "power2.out"
             });
         } else {
+            // Re-enable scrolling when menu is closed
+            document.body.style.overflow = 'unset';
             gsap.to(menuRef.current, {
                 height: 0,
                 opacity: 0,
@@ -55,23 +77,32 @@ const Navbar = () => {
                 ease: "power2.in"
             });
         }
+        
+        // Cleanup function to reset overflow when component unmounts
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
     }, [isMenuOpen]);
 
     // Menu item animation on hover
     const handleHover = (e) => {
-        gsap.to(e.target, {
-            y: -2,
-            color: "#FCA311",
-            duration: 0.2
-        });
+        if (window.innerWidth > 768) { // Only on desktop
+            gsap.to(e.target, {
+                y: -2,
+                color: "#FCA311",
+                duration: 0.2
+            });
+        }
     };
 
     const handleHoverExit = (e) => {
-        gsap.to(e.target, {
-            y: 0,
-            color: "#FFFFFF",
-            duration: 0.2
-        });
+        if (window.innerWidth > 768) { // Only on desktop
+            gsap.to(e.target, {
+                y: 0,
+                color: "#FFFFFF",
+                duration: 0.2
+            });
+        }
     };
 
     // Button animation
@@ -91,28 +122,34 @@ const Navbar = () => {
         });
     };
 
+    // Handle menu item click (for mobile)
+    const handleMenuItemClick = () => {
+        setIsMenuOpen(false);
+    };
+
     return (
         <>
             <div ref={ref} className="h-1 w-full absolute top-0"></div>
             <nav
                 ref={navbarRef}
-                className="fixed w-full z-50 py-3 px-4 md:px-20 text-white bg-[#14213D]"
+                className="fixed w-full z-50 py-3 px-4 md:px-6 lg:px-20 text-white bg-[#14213D]"
             >
-                <div className="flex flex-row justify-between items-center">
+                <div className="flex flex-row justify-between items-center max-w-7xl mx-auto">
                     <h1
-                        className="text-2xl font-bold cursor-pointer"
+                        className="text-xl sm:text-2xl font-bold cursor-pointer"
                         onMouseEnter={handleHover}
                         onMouseLeave={handleHoverExit}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >
                         IPGYAN
                     </h1>
 
                     {/* Desktop Menu */}
-                    <div className="hidden md:flex flex-row gap-5 items-center">
+                    <div className="hidden md:flex flex-row gap-4 lg:gap-5 items-center">
                         {['Home', 'About', 'Services', 'Blog', 'FAQ', 'Testimonials'].map((item) => (
                             <span
                                 key={item}
-                                className="cursor-pointer relative text-lg"
+                                className="cursor-pointer relative text-base lg:text-lg transition-colors duration-200 hover:text-[#FCA311]"
                                 onMouseEnter={handleHover}
                                 onMouseLeave={handleHoverExit}
                             >
@@ -120,20 +157,21 @@ const Navbar = () => {
                             </span>
                         ))}
 
+                        <button
+                            className="bg-[#FCA311] text-black font-bold text-base lg:text-lg cursor-pointer px-3 py-1.5 lg:px-4 lg:py-2 rounded transition-all hover:bg-[#e5a00d] active:scale-95"
+                            onMouseEnter={handleButtonHover}
+                            onMouseLeave={handleButtonExit}
+                        >
+                            Contact
+                        </button>
                     </div>
-                    <button
-                        className="hidden md:flex bg-[#FCA311] text-black font-bold text-lg cursor-pointer px-4 py-2 rounded transition-all"
-                        onMouseEnter={handleButtonHover}
-                        onMouseLeave={handleButtonExit}
-                    >
-                        Contact
-                    </button>
 
                     {/* Mobile Menu Button */}
                     <button
-                        className="md:hidden flex flex-col w-6 h-5 justify-between items-center cursor-pointer"
+                        className="md:hidden flex flex-col w-6 h-5 justify-between items-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#FCA311] rounded"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         aria-label="Toggle menu"
+                        aria-expanded={isMenuOpen}
                     >
                         <span className={`w-full h-0.5 bg-white transition-transform ${isMenuOpen ? 'transform rotate-45 translate-y-2' : ''}`}></span>
                         <span className={`w-full h-0.5 bg-white transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`}></span>
@@ -144,31 +182,42 @@ const Navbar = () => {
                 {/* Mobile Menu */}
                 <div
                     ref={menuRef}
-                    className="md:hidden h-0 overflow-hidden opacity-0"
+                    className="md:hidden h-0 overflow-hidden opacity-0 bg-[#14213D] absolute left-0 right-0 top-full shadow-lg"
+                    style={{ maxHeight: 'calc(100vh - 100%)', overflowY: 'auto' }}
                 >
-                    <div className="flex flex-col gap-4 mt-4 pb-4">
+                    <div className="flex flex-col gap-0 pt-2 pb-6 px-4">
                         {['Home', 'About', 'Services', 'Blog', 'FAQ', 'Testimonials'].map((item) => (
-                            <span
+                            <a
                                 key={item}
-                                onMouseEnter={handleHover}
-                                onMouseLeave={handleHoverExit}
-                                className="cursor-pointer py-2 border-b border-gray-700"
-                                onClick={() => setIsMenuOpen(false)}
+                                className="cursor-pointer py-3 px-4 border-b border-gray-700 text-lg transition-colors duration-200 hover:text-[#FCA311] hover:bg-[#1a2d4f] active:bg-[#22345c] rounded-md"
+                                onClick={handleMenuItemClick}
+                                onKeyPress={(e) => e.key === 'Enter' && handleMenuItemClick()}
+                                tabIndex={isMenuOpen ? 0 : -1}
                             >
                                 {item}
-                            </span>
+                            </a>
                         ))}
 
                         <button
-                            className="bg-[#FCA311] text-black font-bold text-lg cursor-pointer px-4 py-2 rounded mt-2 w-full"
+                            className="bg-[#FCA311] text-black font-bold text-lg cursor-pointer px-4 py-3 rounded mt-4 w-full hover:bg-[#e5a00d] active:scale-95 transition-all"
                             onMouseEnter={handleButtonHover}
                             onMouseLeave={handleButtonExit}
+                            tabIndex={isMenuOpen ? 0 : -1}
                         >
                             Contact
                         </button>
                     </div>
                 </div>
             </nav>
+            
+            {/* Overlay for mobile menu */}
+            {isMenuOpen && (
+                <div 
+                    className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+                    onClick={() => setIsMenuOpen(false)}
+                    aria-hidden="true"
+                />
+            )}
         </>
     );
 };

@@ -82,7 +82,7 @@ const BlogSection = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <p ref={titleRef} className="text-orange-400 text-2xl font-bold  mb-2">Latest Blog</p>
+          <p ref={titleRef} className="text-orange-400 text-3xl font-bold  mb-2">Latest Blog</p>
           <h2 ref={subtitleRef} className="text-3xl md:text-4xl font-normal font-inria leading-tight mxw-w-[400px]">
             Stay informed with our expert insights, legal updates, and practical tips to navigate the complexities of the law.
           </h2>
