@@ -1,6 +1,6 @@
 import React from 'react'
 import Hero from '../Components/About/Hero'
-import WhatWeDo from '../Components/About/Whatwedo'
+import WhatWeDo from '../Components/About/WhatWeDo'
 import WhatToExpect from '../Components/About/WhatToExpect'
 import LawyersGallery from '../Components/About/LawyersGallery'
 import Vision from '../Components/About/Vision'
