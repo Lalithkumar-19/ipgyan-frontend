@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Calendar, Clock, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Blogs = () => {
   // State for blog posts, filters, and pagination
@@ -359,10 +360,10 @@ const Blogs = () => {
                           <p className="text-sm font-medium text-gray-900">{post.author}</p>
                           <p className="text-sm text-gray-500">{formatDate(post.date)}</p>
                         </div>
-                        <button className="text-amber-600 hover:text-amber-700 flex items-center">
+                        <Link to={`/blog/${post.id}`} className="text-amber-600 hover:text-amber-700 flex items-center">
                           Read more
                           <ArrowRight className="ml-1 h-4 w-4" />
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
