@@ -278,37 +278,39 @@ const Blogs = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Calendar className="h-4 w-4 text-gray-400" />
+              <div className="flex flex-row gap-2 w-full">
+                <div className="relative flex-1">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Calendar className="h-4 w-4 text-gray-400" />
+                  </div>
+                  <input
+                    type="date"
+                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm"
+                    value={dateRange.start}
+                    onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
+                    max={new Date().toISOString().split('T')[0]}
+                  />
                 </div>
-                <input
-                  type="date"
-                  className="pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm"
-                  value={dateRange.start}
-                  onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
-                  max={new Date().toISOString().split('T')[0]}
-                />
-              </div>
-              <span className="flex items-center justify-center text-gray-500">to</span>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Calendar className="h-4 w-4 text-gray-400" />
+                <span className="flex items-center justify-center text-gray-500 text-sm">to</span>
+                <div className="relative flex-1">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Calendar className="h-4 w-4 text-gray-400" />
+                  </div>
+                  <input
+                    type="date"
+                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm"
+                    value={dateRange.end}
+                    onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
+                    min={dateRange.start}
+                    max={new Date().toISOString().split('T')[0]}
+                    disabled={!dateRange.start}
+                  />
                 </div>
-                <input
-                  type="date"
-                  className="pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm"
-                  value={dateRange.end}
-                  onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
-                  min={dateRange.start}
-                  max={new Date().toISOString().split('T')[0]}
-                  disabled={!dateRange.start}
-                />
               </div>
               {(dateRange.start || dateRange.end) && (
                 <button
                   onClick={() => setDateRange({ start: '', end: '' })}
-                  className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900"
+                  className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 whitespace-nowrap"
                 >
                   Clear dates
                 </button>
