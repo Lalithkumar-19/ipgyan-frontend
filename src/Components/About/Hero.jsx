@@ -49,7 +49,7 @@ const Hero = () => {
     return (
         <div
             ref={heroRef}
-            className="-mt-32 relative w-full md:-mt-2 px-4 sm:px-6 md:px-12 lg:px-20 text-white bg-gradient-to-br from-[#1a2e4d] to-[#0d1a2d] min-h-screen flex items-center justify-center overflow-hidden"
+            className="-mt-16 relative w-full md:-mt-2 px-4 sm:px-6 md:px-12 lg:px-20 text-white bg-gradient-to-br from-[#1a2e4d] to-[#0d1a2d] min-h-screen flex items-center justify-center overflow-hidden"
         >
             {/* Background decorative elements */}
             <svg className='absolute top-0 left-0 -translate-x-1/4 sm:-translate-x-1/5 md:translate-x-0 w-48 sm:w-64 md:w-80 lg:w-auto' width="764" height="982" viewBox="0 0 764 982" fill="none" xmlns="http://www.w3.org/2000/svg">
