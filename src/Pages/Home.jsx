@@ -1,12 +1,12 @@
 import React from 'react'
-import Hero from '../Components/Hero'
-import Services from '../Components/Services'
-import OurLawyers from '../Components/OurLawyers'
-import Testimonial from '../Components/Testimonial'
+import Hero from '../Components/Home/Hero'
+import Services from '../Components/Home/Services'
+import OurLawyers from '../Components/Home/OurLawyers'
+import Testimonial from '../Components/Home/Testimonial'
 
-import Faq from '../Components/Faq'
-import BlogSection from '../Components/BlogSection'
-import ContactUs from '../Components/ContactUs'
+import Faq from '../Components/Home/Faq'
+import BlogSection from '../Components/Home/BlogSection'
+import ContactUs from '../Components/Home/ContactUs'
 
 const Home = () => {
     return (

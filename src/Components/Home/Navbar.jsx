@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useInView } from 'react-intersection-observer';
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,10 +12,38 @@ const Navbar = () => {
         triggerOnce: false
     });
 
+    // Navigation links
+    const navlinks = [
+        {
+            name: "Home",
+            link: "/"
+        },
+        {
+            name: "About",
+            link: "/aboutus"
+        }, 
+        {
+            name: "Services",
+            link: "/services"
+        }, 
+        {
+            name: "Blog",
+            link: "/blog"
+        }, 
+        {
+            name: "Practice Areas",
+            link: "/practice-areas"
+        }, 
+        {
+            name: "Testimonials",
+            link: "/testimonials"
+        }
+    ];
+
     // Close menu when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target) && 
+            if (menuRef.current && !menuRef.current.contains(event.target) &&
                 navbarRef.current && !navbarRef.current.contains(event.target)) {
                 setIsMenuOpen(false);
             }
@@ -22,7 +51,7 @@ const Navbar = () => {
 
         document.addEventListener('mousedown', handleClickOutside);
         document.addEventListener('touchstart', handleClickOutside);
-        
+
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
             document.removeEventListener('touchstart', handleClickOutside);
@@ -77,7 +106,7 @@ const Navbar = () => {
                 ease: "power2.in"
             });
         }
-        
+
         // Cleanup function to reset overflow when component unmounts
         return () => {
             document.body.style.overflow = 'unset';
@@ -135,35 +164,32 @@ const Navbar = () => {
                 className="fixed w-full z-50 py-3 px-4 md:px-6 lg:px-20 text-white bg-[#14213D]"
             >
                 <div className="flex flex-row justify-between items-center max-w-7xl mx-auto">
-                    <h1
-                        className="text-xl sm:text-2xl font-bold cursor-pointer"
-                        onMouseEnter={handleHover}
-                        onMouseLeave={handleHoverExit}
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    >
+                    <Link to="/" className="text-xl sm:text-2xl font-bold hover:text-[#FCA311] transition-colors">
                         IPGYAN
-                    </h1>
+                    </Link>
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex flex-row gap-4 lg:gap-5 items-center">
-                        {['Home', 'About', 'Services', 'Blog', 'FAQ', 'Testimonials'].map((item) => (
-                            <span
-                                key={item}
+                        {navlinks.map((item, index) => (
+                            <Link
+                                key={index}
+                                to={item.link}
                                 className="cursor-pointer relative text-base lg:text-lg transition-colors duration-200 hover:text-[#FCA311]"
                                 onMouseEnter={handleHover}
                                 onMouseLeave={handleHoverExit}
                             >
-                                {item}
-                            </span>
+                                {item.name}
+                            </Link>
                         ))}
 
-                        <button
+                        <Link
+                            to="/contact"
                             className="bg-[#FCA311] text-black font-bold text-base lg:text-lg cursor-pointer px-3 py-1.5 lg:px-4 lg:py-2 rounded transition-all hover:bg-[#e5a00d] active:scale-95"
                             onMouseEnter={handleButtonHover}
                             onMouseLeave={handleButtonExit}
                         >
                             Contact
-                        </button>
+                        </Link>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -186,33 +212,33 @@ const Navbar = () => {
                     style={{ maxHeight: 'calc(100vh - 100%)', overflowY: 'auto' }}
                 >
                     <div className="flex flex-col gap-0 pt-2 pb-6 px-4">
-                        {['Home', 'About', 'Services', 'Blog', 'FAQ', 'Testimonials'].map((item) => (
-                            <a
-                                key={item}
-                                className="cursor-pointer py-3 px-4 border-b border-gray-700 text-lg transition-colors duration-200 hover:text-[#FCA311] hover:bg-[#1a2d4f] active:bg-[#22345c] rounded-md"
+                        {navlinks.map((item, index) => (
+                            <Link
+                                key={index}
+                                to={item.link}
+                                className="block cursor-pointer py-3 px-4 border-b border-gray-700 text-lg transition-colors duration-200 hover:text-[#FCA311] hover:bg-[#1a2d4f] active:bg-[#22345c] rounded-md"
                                 onClick={handleMenuItemClick}
-                                onKeyPress={(e) => e.key === 'Enter' && handleMenuItemClick()}
-                                tabIndex={isMenuOpen ? 0 : -1}
                             >
-                                {item}
-                            </a>
+                                {item.name}
+                            </Link>
                         ))}
 
-                        <button
-                            className="bg-[#FCA311] text-black font-bold text-lg cursor-pointer px-4 py-3 rounded mt-4 w-full hover:bg-[#e5a00d] active:scale-95 transition-all"
+                        <Link
+                            to="/contact"
+                            className="block text-center bg-[#FCA311] text-black font-bold text-lg cursor-pointer px-4 py-3 rounded mt-4 hover:bg-[#e5a00d] active:scale-95 transition-all"
                             onMouseEnter={handleButtonHover}
                             onMouseLeave={handleButtonExit}
-                            tabIndex={isMenuOpen ? 0 : -1}
+                            onClick={handleMenuItemClick}
                         >
                             Contact
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </nav>
-            
+
             {/* Overlay for mobile menu */}
             {isMenuOpen && (
-                <div 
+                <div
                     className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
                     onClick={() => setIsMenuOpen(false)}
                     aria-hidden="true"

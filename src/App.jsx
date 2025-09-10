@@ -1,19 +1,24 @@
 import './App.css'
-import Footer from './Components/Footer';
-import Navbar from './Components/Navbar'
+import Footer from './Components/Home/Footer';
+import Navbar from './Components/Home/Navbar'
+import AboutUs from './Pages/AboutUs';
 import Home from './Pages/Home'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App() {
-
   return (
-    <div className='flex flex-col w-full'>
-      <Navbar />
-      <div className='flex flex-col w-full mt-15' >
-        <Home />
+    <Router>
+      <div className='flex flex-col w-full'>
+        <Navbar />
+        <div className='flex flex-col w-full mt-15' >
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path='/aboutus' element={<AboutUs />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-
-    </div>
+    </Router>
   )
 }
 
