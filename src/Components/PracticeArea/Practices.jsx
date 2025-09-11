@@ -1,8 +1,89 @@
 import React from 'react'
-
+import { Scale, Gavel, Globe, Users, FileText, Landmark,CheckCircle,ArrowRight } from "lucide-react";
+import {Link } from "react-router-dom"
 const Practices = () => {
+
+
+    const practiceAreas = [
+        {
+            title: "Family Law",
+            description:
+                "Our family and divorce lawyers focus on all issues relating to family law including divorce, common law spouses, support, asset division, debt division and child custody or parenting time.",
+            icon: <Users className="w-8 h-8" />,
+            features: [
+                "Divorce and separation cases",
+                "Child custody & parenting time",
+                "Asset & debt division",
+                "Spousal & child support"
+            ],
+        },
+        {
+            title: "Estate Litigation",
+            description:
+                "Our estate litigators assist with estate litigation and have numerous court successes in addition to settlements dealing with unfair wills, will disputes, trust disputes and more.",
+            icon: <FileText className="w-8 h-8" />,
+            features: [
+                "Will disputes & challenges",
+                "Trust disputes",
+                "Unfair wills litigation",
+                "Estate settlement guidance"
+            ],
+        },
+        {
+            title: "Immigration Law",
+            description:
+                "Our immigration lawyers have extensive experience with all aspects of immigration law, helping individuals and businesses navigate complex immigration processes with confidence.",
+            icon: <Globe className="w-8 h-8" />,
+            features: [
+                "Visa & work permit applications",
+                "Permanent residency support",
+                "Business immigration solutions",
+                "Appeals & legal representation"
+            ],
+        },
+        {
+            title: "Strata Law",
+            description:
+                "Our strata lawyers deal with both strata owners and corporations, providing expert guidance on all matters related to strata properties and governance.",
+            icon: <Landmark className="w-8 h-8" />,
+            features: [
+                "Strata governance disputes",
+                "Bylaw creation & enforcement",
+                "Owner & corporation representation",
+                "Property management legal advice"
+            ],
+        },
+        {
+            title: "Corporate & Commercial Law",
+            description:
+                "We provide legal expertise for businesses across industries, covering contracts, compliance, intellectual property, and dispute resolution.",
+            icon: <Scale className="w-8 h-8" />,
+            features: [
+                "Business incorporation & structuring",
+                "Contract drafting & review",
+                "Intellectual property protection",
+                "Commercial dispute resolution"
+            ],
+        },
+        {
+            title: "Civil & Criminal Litigation",
+            description:
+                "Our lawyers represent clients in a wide range of civil and criminal disputes, ensuring fair representation and justice in every case.",
+            icon: <Gavel className="w-8 h-8" />,
+            features: [
+                "Civil rights cases",
+                "Fraud & white-collar defense",
+                "Personal injury litigation",
+                "General dispute resolution"
+            ],
+        },
+    ];
+
+
+
+
     return (
-        <section id="services" className="md:px-20 px-3 py-16 md:py-10 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+        <section id="PracticeAreas" className="md:px-20 px-3 py-16 md:py-10 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
             {/* Decorative elements */}
             <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-900/5 rounded-full translate-x-1/3 translate-y-1/3"></div>
@@ -19,7 +100,7 @@ const Practices = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {services.map((service, index) => (
+                    {practiceAreas.map((service, index) => (
                         <div
                             key={index}
                             className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group hover:-translate-y-2"
@@ -72,7 +153,7 @@ const Practices = () => {
         </section>
 
 
-  )
+    )
 }
 
 export default Practices

@@ -81,7 +81,7 @@ const IndustriesSection = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Industries <span className="text-amber-400">We Serve</span>
           </h2>
-          <div className="w-20 h-1 bg-amber-400 mx-auto mb-6"></div>
+          {/* <div className="w-20 h-1 bg-amber-400 mx-auto mb-6"></div> */}
           <p className="text-lg text-gray-600 leading-relaxed">
             We provide specialized legal services across diverse industries, helping businesses navigate complex regulations and protect their interests in an ever-changing landscape.
           </p>

@@ -32,12 +32,12 @@ const Navbar = () => {
         }, 
         {
             name: "Practice Areas",
-            link: "/practice-areas"
+            link: "/practiceareas"
         }, 
-        {
-            name: "Testimonials",
-            link: "/testimonials"
-        }
+        // {
+        //     name: "Testimonials",
+        //     link: "/testimonials"
+        // }
     ];
 
     // Close menu when clicking outside

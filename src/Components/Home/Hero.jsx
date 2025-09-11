@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
     const heroRef = useRef(null);
@@ -9,6 +10,7 @@ const Hero = () => {
     const descRef = useRef(null);
     const buttonRef = useRef(null);
     const imageRef = useRef(null);
+    const navigate = useNavigate();
 
     const [ref, inView] = useInView({
         threshold: 0.3,
@@ -107,6 +109,7 @@ const Hero = () => {
                         onMouseLeave={(e) => {
                             gsap.to(e.target, { scale: 1, duration: 0.2 });
                         }}
+                        onClick={()=>{navigate('/contact')}}
                     >
                         <span className="text-black text-lg sm:text-xl md:text-2xl font-normal font-inria cursor-pointer">
                             Schedule a Consultation

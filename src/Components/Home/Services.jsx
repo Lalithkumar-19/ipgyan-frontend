@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom';
 
 const Services = () => {
     const servicesRef = useRef(null);
@@ -9,6 +10,7 @@ const Services = () => {
     const descRef = useRef(null);
     const buttonRef = useRef(null);
     const cardsRef = useRef([]);
+    const navigate=useNavigate();
 
     const [ref, inView] = useInView({
         threshold: 0.2,
@@ -213,6 +215,9 @@ const Services = () => {
                             }}
                             onMouseLeave={(e) => {
                                 gsap.to(e.target, { scale: 1, duration: 0.2 });
+                            }}
+                            onClick={()=>{
+                                navigate('/services')
                             }}
                         >
                             <span className="text-center cursor-pointer text-black text-base sm:text-lg font-normal font-inria">

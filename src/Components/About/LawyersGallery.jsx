@@ -94,6 +94,7 @@ const LawyersGallery = () => {
     return (
         <section 
             ref={sectionRef}
+            id='team'
             className="py-16 md:py-24  px-4 sm:px-6 lg:px-8 relative overflow-hidden"
         >
             {/* Decorative elements */}

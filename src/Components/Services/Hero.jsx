@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
   const heroRef = useRef(null);
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const buttonRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -17,7 +19,7 @@ const Hero = () => {
 
       // Create timeline
       const tl = gsap.timeline({ delay: 0.3 });
-      
+
       // Animate elements in sequence
       tl.to(titleRef.current, {
         opacity: 1,
@@ -25,18 +27,18 @@ const Hero = () => {
         duration: 1,
         ease: "power3.out"
       })
-      .to(subtitleRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.6")
-      .to(buttonRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.4");
+        .to(subtitleRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out"
+        }, "-=0.6")
+        .to(buttonRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out"
+        }, "-=0.4");
 
     }, heroRef);
 
@@ -44,12 +46,12 @@ const Hero = () => {
   }, []);
 
   return (
-    <section 
+    <section
       ref={heroRef}
       className="relative md:px-20 px-3 min-h-screen bg-slate-900 overflow-hidden"
     >
       {/* Background Image with Overlay */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: "url('https://knightlawfirmllc.com/wp-content/uploads/2025/01/How-Are-an-Attorney-and-a-Lawyer-Different-e1744301353798.png')"
@@ -64,7 +66,7 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
         <div className="max-w-2xl text-white space-y-6 md:space-y-8 py-20">
           <div>
-            <h1 
+            <h1
               ref={titleRef}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight"
             >
@@ -73,20 +75,27 @@ const Hero = () => {
               <span className="text-amber-400">IS OUR FIGHT</span>
             </h1>
           </div>
-          
-          <p 
+
+          <p
             ref={subtitleRef}
             className="text-xl sm:text-2xl md:text-3xl text-gray-300 leading-relaxed max-w-lg"
           >
             New Orleans Criminal Defense Attorneys & Personal Injury Lawyers
           </p>
-          
+
           <div ref={buttonRef} className="pt-4 cursor-pointer flex flex-row gap-2">
-            <button className="group relative cursor-pointer bg-amber-400 hover:bg-amber-500 text-white px-6 py-3 md:px-8 md:py-4 text-lg font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+            <button
+              onClick={() => {
+                document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="group relative cursor-pointer bg-amber-400 hover:bg-amber-500 text-white px-6 py-3 md:px-8 md:py-4 text-lg font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
               <span className="relative z-10">See Our Services</span>
               {/* <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div> */}
             </button>
-            <button className="group relative cursor-pointer bg-amber-400 hover:bg-amber-500 text-white px-6 py-3 md:px-8 md:py-4 text-lg font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+            <button
+            
+             onClick={()=>navigate('/contact')}
+             className="group relative cursor-pointer bg-amber-400 hover:bg-amber-500 text-white px-6 py-3 md:px-8 md:py-4 text-lg font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
               <span className="relative z-10">Contact US</span>
               {/* <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div> */}
             </button>

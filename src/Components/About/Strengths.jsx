@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom';
 
 const Strengths = () => {
 
@@ -8,6 +9,7 @@ const Strengths = () => {
     const titleRef = useRef(null);
     const descRef = useRef(null);
     const strengthsRef = useRef([]);
+    const navigate=useNavigate();
     
     const [ref, inView] = useInView({
         threshold: 0.2,
@@ -178,7 +180,11 @@ const Strengths = () => {
                     <p className="text-lg text-gray-700 mb-6">
                         Experience the IPGYAN difference – where legal expertise meets business acumen.
                     </p>
-                    <button className="px-8 py-3 cursor-pointer bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition-colors shadow-md">
+                    <button 
+                    onClick={()=>{
+                        navigate('/contact')
+                    }}
+                    className="px-8 py-3 cursor-pointer bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition-colors shadow-md">
                         Connect With Us
                     </button>
                 </div>

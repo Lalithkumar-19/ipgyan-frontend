@@ -7,6 +7,8 @@ import Home from './Pages/Home'
 import BlogPost from './Pages/BlogPost';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Services from './Pages/Services';
+import PracticeAreas from './Pages/PracticeAreas';
+import ContactUs from './Pages/ContactUs';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path='/blog' element={<Blogs />} />
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/practiceareas" element={<PracticeAreas />} />
+            <Route path="/contact" element={<ContactUs />} />
           </Routes>
         </div>
         <Footer />

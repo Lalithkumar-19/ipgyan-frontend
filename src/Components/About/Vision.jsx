@@ -80,6 +80,7 @@ const Vision = () => {
     return (
         <section 
             ref={sectionRef}
+            id='vision'
             className="py-16 md:py-24 sm:px-6 lg:px-8 relative overflow-hidden"
         >
             {/* Decorative elements */}

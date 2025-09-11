@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useNavigate } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,12 +10,14 @@ const BlogSection = () => {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const cardsRef = useRef([]);
+  const navigate=useNavigate();
 
   useEffect(() => {
     const section = sectionRef.current;
     const title = titleRef.current;
     const subtitle = subtitleRef.current;
     const cards = cardsRef.current;
+   
 
     // Title animation
     gsap.fromTo(title, 
@@ -218,7 +221,7 @@ const BlogSection = () => {
         </div>
 
         {/* See More Button */}
-        <div className="text-center">
+        <div className="text-center" onClick={()=>{navigate('/blog')}}>
           <button className="bg-orange-400 cursor-pointer hover:bg-orange-500 text-white px-8 py-3 rounded-md font-medium transition-colors duration-300">
             See more
           </button>

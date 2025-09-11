@@ -109,23 +109,29 @@ const Hero = () => {
                             onMouseLeave={(e) => {
                                 gsap.to(e.target, { scale: 1, duration: 0.2 });
                             }}
+                            onClick={() => {
+                                document.getElementById('team').scrollIntoView({ behavior: 'smooth' });
+                            }}
                         >
                             <span className="text-white text-lg sm:text-xl font-normal font-inria cursor-pointer">
                                 Meet Our Team
                             </span>
                         </button>
-                        
+
                         <button
                             className="px-5 py-3 sm:px-6 sm:py-4 bg-transparent border-2 border-[#8da3c7] hover:bg-[#8da3c7]/10 shadow-md transition-all duration-300 transform hover:scale-105 w-full sm:w-auto text-center"
                             onMouseEnter={(e) => {
                                 gsap.to(e.target, { scale: 1.05, duration: 0.2 });
+                            }}
+                            onClick={() => {
+                                document.getElementById('vision').scrollIntoView({ behavior: 'smooth' });
                             }}
                             onMouseLeave={(e) => {
                                 gsap.to(e.target, { scale: 1, duration: 0.2 });
                             }}
                         >
                             <span className="text-white text-lg sm:text-xl font-normal font-inria cursor-pointer">
-                                Our History
+                                Our Vision
                             </span>
                         </button>
                     </div>
@@ -138,13 +144,13 @@ const Hero = () => {
                 >
                     <div className="relative w-full max-w-md">
                         <div className="w-full h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96 bg-gradient-to-br from-[#8da3c7] to-[#3a506b] rounded-lg flex items-center justify-center overflow-hidden shadow-2xl">
-                            <img 
-                                src='https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80' 
-                                className="w-full h-full object-cover" 
-                                alt='Our legal team discussing a case' 
+                            <img
+                                src='https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80'
+                                className="w-full h-full object-cover"
+                                alt='Our legal team discussing a case'
                             />
                         </div>
-                        
+
                         {/* Decorative element */}
                         <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-[#8da3c7] opacity-30 rounded-lg z-0"></div>
                         <div className="absolute -top-4 -left-4 w-16 h-16 bg-[#8da3c7] opacity-20 rounded-lg z-0"></div>

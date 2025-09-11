@@ -8,12 +8,14 @@ import Faq from '../Components/Home/Faq'
 import BlogSection from '../Components/Home/BlogSection'
 import ContactUs from '../Components/Home/ContactUs'
 import NewsletterSubscription from '../Components/Home/NewsletterSubscription'
+import ClientShowcase from '../Components/Home/ClientShowCase'
 
 const Home = () => {
     return (
         <div className='flex flex-col w-full'>
             <Hero />
             <Services />
+            <ClientShowcase />
             <OurLawyers />
             <Testimonial />
             <BlogSection />
