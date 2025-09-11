@@ -213,7 +213,7 @@ const Blogs = () => {
       clearTimeout(timer);
       if (ctx) ctx.revert(); // This will kill all GSAP animations and revert to pre-animation state
     };
-  }, [currentPosts]); // Only re-run when currentPosts changes
+  }, [ ]); // Only re-run when currentPosts changes
 
   // Reset to first page when filters change
   useEffect(() => {

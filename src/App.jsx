@@ -6,6 +6,7 @@ import Blogs from './Pages/Blogs';
 import Home from './Pages/Home'
 import BlogPost from './Pages/BlogPost';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Services from './Pages/Services';
 
 function App() {
   return (
@@ -18,10 +19,12 @@ function App() {
             <Route path='/aboutus' element={<AboutUs />} />
             <Route path='/blog' element={<Blogs />} />
             <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/services" element={<Services />} />
           </Routes>
         </div>
         <Footer />
       </div>
+
     </Router>
   )
 }
