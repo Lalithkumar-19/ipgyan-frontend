@@ -176,11 +176,80 @@ const ContactUs = () => {
     return (
         <div className="min-h-screen bg-slate-50 -mt-3">
             {/* Hero Section */}
+            {/* <div className="w-full px-3 md:px-20 flex flex-col md:flex-row items-center justify-between py-12 md:py-20  bg-gradient-to-br from-slate-50 to-slate-100 relative overflow-hidden">
+                
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjwvZz48L2c+PC9zdmc+')]"></div>
+                </div>
+
+           
+                <div className="md:mb-12 relative z-10 max-w-2xl">
+                 
+                    <h1 className="text-4xl md:text-5xl font-light text-gray-900 leading-tight max-w-2xl text-center md:text-start animate-fade-in-up">
+                        We're always on the lookout to work with new clients. Please get in touch in one of the following ways.
+                    </h1>
+
+                  
+                    <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center md:justify-start">
+                        <button className="bg-amber-500 hover:bg-amber-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+                            Schedule a Call
+                        </button>
+                        <button className="border border-amber-500 text-amber-500 hover:bg-amber-50 font-medium py-3 px-6 rounded-lg transition-all duration-300">
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+
+              
+                <div className="relative mt-10 md:mt-0 md:ml-8 animate-float">
+                    <svg
+                        width="382"
+                        height="200"
+                        viewBox="0 0 382 103"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="drop-shadow-lg"
+                    >
+                        <path d="M1 6.61111C13.6667 -0.87037 26.3333 -0.87037 39 6.61111C51.6667 14.0926 64.3333 14.0926 77 6.61111C89.6667 -0.87037 102.333 -0.87037 115 6.61111C127.667 14.0926 140.333 14.0926 153 6.61111C165.667 -0.87037 178.333 -0.87037 191 6.61111C203.667 14.0926 216.333 14.0926 229 6.61111C241.667 -0.87037 254.333 -0.87037 267 6.61111C279.667 14.0926 292.333 14.0926 305 6.61111C317.667 -0.87037 330.333 -0.87037 343 6.61111C355.667 14.0926 368.333 14.0926 381 6.61111" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse" />
+                        <path d="M1 24.5667C13.6667 17.0852 26.3333 17.0852 39 24.5667C51.6667 32.0482 64.3333 32.0482 77 24.5667C89.6667 17.0852 102.333 17.0852 115 24.5667C127.667 32.0482 140.333 32.0482 153 24.5667C165.667 17.0852 178.333 17.0852 191 24.5667C203.667 32.0482 216.333 32.0482 229 24.5667C241.667 17.0852 254.333 17.0852 267 24.5667C279.667 32.0482 292.333 32.0482 305 24.5667C317.667 17.0852 330.333 17.0852 343 24.5667C355.667 32.0482 368.333 32.0482 381 24.5667" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse delay-100" />
+                        <path d="M1 42.5222C13.6667 35.0408 26.3333 35.0408 39 42.5222C51.6667 50.0037 64.3333 50.0037 77 42.5222C89.6667 35.0408 102.333 35.0408 115 42.5222C127.667 50.0037 140.333 50.0037 153 42.5222C165.667 35.0408 178.333 35.0408 191 42.5222C203.667 50.0037 216.333 50.0037 229 42.5222C241.667 35.0408 254.333 35.0408 267 42.5222C279.667 50.0037 292.333 50.0037 305 42.5222C317.667 35.0408 330.333 35.0408 343 42.5222C355.667 50.0037 368.333 50.0037 381 42.5222" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse delay-200" />
+                        <path d="M1 60.4778C13.6667 52.9963 26.3333 52.9963 39 60.4778C51.6667 67.9593 64.3333 67.9593 77 60.4778C89.6667 52.9963 102.333 52.9963 115 60.4778C127.667 67.9593 140.333 67.9593 153 60.4778C165.667 52.9963 178.333 52.9963 191 60.4778C203.667 67.9593 216.333 67.9593 229 60.4778C241.667 52.9963 254.333 52.9963 267 60.4778C279.667 67.9593 292.333 67.9593 305 60.4778C317.667 52.9963 330.333 52.9963 343 60.4778C355.667 67.9593 368.333 67.9593 381 60.4778" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse delay-300" />
+                        <path d="M1 78.4334C13.6667 70.9519 26.3333 70.9519 39 78.4334C51.6667 85.9149 64.3333 85.9149 77 78.4334C89.6667 70.9519 102.333 70.9519 115 78.4334C127.667 85.9149 140.333 85.9149 153 78.4334C165.667 70.9519 178.333 70.9519 191 78.4334C203.667 85.9149 216.333 85.9149 229 78.4334C241.667 70.9519 254.333 70.9519 267 78.4334C279.667 85.9149 292.333 85.9149 305 78.4334C317.667 70.9519 330.333 70.9519 343 78.4334C355.667 85.9149 368.333 85.9149 381 78.4334" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse delay-400" />
+                        <path d="M1 96.3889C13.6667 88.9075 26.3333 88.9075 39 96.3889C51.6667 103.87 64.3333 103.87 77 96.3889C89.6667 88.9075 102.333 88.9075 115 96.3889C127.667 103.87 140.333 103.87 153 96.3889C165.667 88.9075 178.333 88.9075 191 96.3889C203.667 103.87 216.333 103.87 229 96.3889C241.667 88.9075 254.333 88.9075 267 96.3889C279.667 103.87 292.333 103.87 305 96.3889C317.667 88.9075 330.333 88.9075 343 96.3889C355.667 103.87 368.333 103.87 381 96.3889" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse delay-500" />
+                    </svg>
+
+            
+                    <div className="absolute -top-4 -right-4 w-8 h-8 bg-amber-400 rounded-full opacity-20 animate-bounce"></div>
+                    <div className="absolute -bottom-2 -left-4 w-6 h-6 bg-amber-500 rounded-full opacity-30 animate-bounce delay-300"></div>
+                </div>
+
+                <style jsx>{`
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    .animate-fade-in-up {
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out 0.2s forwards;
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+  `}</style>
+            </div> */}
             <section
                 ref={heroRef}
                 className="relative pt-28 pb-20 bg-gradient-to-r from-slate-900 to-slate-800 overflow-hidden"
             >
-                {/* Animated background elements */}
+          
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-amber-400 rounded-full filter blur-3xl opacity-20"></div>
                     <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-blue-400 rounded-full filter blur-3xl opacity-10"></div>
@@ -211,7 +280,7 @@ const ContactUs = () => {
                     </div>
                 </div>
 
-                {/* Animated scroll indicator */}
+               
                 <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
                     <motion.div
                         animate={{ y: [0, 10, 0] }}
@@ -235,7 +304,7 @@ const ContactUs = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        {/* Contact Information */}
+
                         <div className="space-y-8">
                             <motion.h2
                                 className="text-3xl font-bold text-slate-900"
@@ -271,7 +340,7 @@ const ContactUs = () => {
                                 ))}
                             </div>
 
-                            {/* Social Media */}
+
                             <motion.div
                                 className="pt-4"
                                 initial={{ opacity: 0, y: 20 }}
@@ -298,7 +367,7 @@ const ContactUs = () => {
                                 </div>
                             </motion.div>
 
-                            {/* Map */}
+
                             <motion.div
                                 className="mt-8 rounded-xl overflow-hidden shadow-lg"
                                 initial={{ opacity: 0, y: 20 }}
@@ -319,7 +388,6 @@ const ContactUs = () => {
                             </motion.div>
                         </div>
 
-                        {/* Contact Form */}
                         <motion.div
                             className="bg-white rounded-2xl shadow-xl p-6 md:p-8 form-element"
                             initial={{ opacity: 0, y: 30 }}

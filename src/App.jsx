@@ -13,7 +13,7 @@ import ContactUs from './Pages/ContactUs';
 function App() {
   return (
     <Router>
-      <div className='flex flex-col w-full'>
+      <div className='flex flex-col w-full overflow-x-hidden'>
         <Navbar />
         <div className='flex flex-col w-full mt-15' >
           <Routes>

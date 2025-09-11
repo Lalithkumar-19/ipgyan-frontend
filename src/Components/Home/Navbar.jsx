@@ -158,7 +158,7 @@ const Navbar = () => {
 
     return (
         <>
-            <div ref={ref} className="h-1 w-full absolute top-0"></div>
+            <div ref={ref} className="h-1 w-full bg-amber-400 absolute top-0"></div>
             <nav
                 ref={navbarRef}
                 className="fixed w-full z-50 py-3 px-4 md:px-6 lg:px-20 text-white bg-[#14213D]"
