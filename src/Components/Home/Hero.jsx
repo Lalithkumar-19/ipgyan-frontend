@@ -51,7 +51,7 @@ const Hero = () => {
     return (
         <div
             ref={heroRef}
-            className="-mt-32 relative w-full md:-mt-2 px-4 sm:px-6 md:px-12 lg:px-20 text-white bg-[#14213D] min-h-screen flex items-center justify-center overflow-hidden"
+            className="-mt-32 relative w-full md:-mt-2 px-4 sm:px-6 md:px-12 lg:px-20 text-white bg-[#14213D] min-h-screen flex items-center justify-center"
         >
             <svg className='absolute top-0 left-0 -translate-x-1/4 sm:-translate-x-1/5 md:translate-x-0 w-48 sm:w-64 md:w-80 lg:w-auto' width="764" height="982" viewBox="0 0 764 982" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.54556 995.022C-49.705 825.463 11.7719 737.299 189.976 730.528C368.181 723.756 429.657 635.592 374.407 466.033C319.156 296.475 380.633 208.31 558.838 201.539C737.042 194.768 798.519 106.603 743.268 -62.9548" stroke="#E5E5E5" strokeOpacity="0.11" />
@@ -69,9 +69,9 @@ const Hero = () => {
                 <div className="flex flex-col w-full lg:w-1/2 gap-4 md:gap-5 lg:gap-6 order-2 lg:order-1">
                     <h1
                         ref={textRef}
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal font-inria leading-tight"
+                        className="text-3xl sm:text-4xl md:text-3xl lg:text-4xl font-normal font-inria leading-tight"
                     >
-                        Your Partner on the Path to Justice.
+                        Your creation matters. Your partner in every idea, every deal, every win.
                     </h1>
 
                     <div className="w-full max-w-md">
@@ -95,24 +95,24 @@ const Hero = () => {
 
                     <p
                         ref={descRef}
-                        className="text-base sm:text-lg md:text-xl font-light font-inria leading-relaxed max-w-lg"
+                        className="text-base sm:text-lg md:text-xl font-light font-inria leading-relaxed w-full"
                     >
-                        We stand by your side, providing expert legal guidance and unwavering support to protect your rights and ensure justice is served.
+                        The promise is in our name: I- INNOVATE, P- PROTECT, G- GUIDE, Y- YEILD, A- AGILE, N- Nexus. makes us IPGYAN!  At IPgyan, we believe every creation carries immense value. For over six years, our mission has been clear: to be the most trusted legal partner that treats your work with diligence, speed, and care. What began as a niche IP, media & entertainment firm has grown into a full-spectrum advisory—covering intellectual property, corporate and business law, media- entertainment laws and technology compliance, dispute resolution, labour law, tax compliance, and litigation. Today, we work with businesses of all sizes and geographies, drafting, negotiating, and closing with precision and clarity.
                     </p>
 
                     <button
                         ref={buttonRef}
-                        className="px-5 py-3 sm:px-6 sm:py-4 bg-amber-500 hover:bg-amber-600 shadow-md transition-all duration-300 transform hover:scale-105 w-full sm:w-auto text-center"
+                        className="px-5 cursor-pointer py-3 sm:px-6 sm:py-4 bg-amber-500 hover:bg-amber-600 shadow-md transition-all duration-300 transform hover:scale-105 w-full sm:w-auto text-center mb-10"
                         onMouseEnter={(e) => {
                             gsap.to(e.target, { scale: 1.05, duration: 0.2 });
                         }}
                         onMouseLeave={(e) => {
                             gsap.to(e.target, { scale: 1, duration: 0.2 });
                         }}
-                        onClick={()=>{navigate('/contact')}}
+                        onClick={() => { navigate('/contact') }}
                     >
-                        <span className="text-black text-lg sm:text-xl md:text-2xl font-normal font-inria cursor-pointer">
-                            Schedule a Consultation
+                        <span className="text-black text-lg sm:text-xl md:text-2xl font-normal font-inria cursor-pointer ">
+                            Book Your First  Visit
                         </span>
                     </button>
                 </div>

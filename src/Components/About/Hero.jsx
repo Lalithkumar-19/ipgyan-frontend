@@ -68,9 +68,9 @@ const Hero = () => {
                 <div className="flex flex-col w-full lg:w-1/2 gap-4 md:gap-5 lg:gap-6 order-2 lg:order-1">
                     <h1
                         ref={textRef}
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal font-inria leading-tight"
+                        className="text-3xl sm:text-4xl md:text-3xl lg:text-4xl font-normal font-inria leading-tight"
                     >
-                        Our Story of Justice and Excellence
+                        Don't need to juggle multiple firms , we provide comprehensive, interconnected legal support that grows with your business.
                     </h1>
 
                     <div className="w-full max-w-md">
@@ -96,7 +96,7 @@ const Hero = () => {
                         ref={descRef}
                         className="text-base sm:text-lg md:text-xl font-light font-inria leading-relaxed max-w-lg"
                     >
-                        For over two decades, our firm has stood as a beacon of legal excellence, combining deep expertise with compassionate client service to deliver justice and protect rights.
+                        For over One decade, our firm has stood as a beacon of legal excellence, combining deep expertise with compassionate client service to deliver justice and protect rights.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 mt-2">
