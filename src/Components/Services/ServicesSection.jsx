@@ -5,32 +5,67 @@ import { Link } from 'react-router-dom';
 const ServicesSection = () => {
   const services = [
     {
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>,
-      title: "IP Services",
-      description: "Our Intellectual Property (IP) services are designed to help individuals, businesses, and innovators protect their creative and innovative assets. We provide comprehensive solutions for patents, trademarks, copyrights, designs, and trade secrets, ensuring that your intellectual property is legally safeguarded against misuse or infringement."
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+      title: "Intellectual Property",
+      description: "We manage the full lifecycle of your intellectual property, from filing to enforcement, ensuring your brand and creations are secure.",
+      points: [
+        "Trademarks & Brand Identity",
+        "Copyrights for Creative Works (Music, Film, Art, Software etc)",
+        "Patent filing",
+        "IP Portfolio Management",
+        "IP enforcement",
+        "IP litigation & dispute resolution"
+      ]
     },
     {
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-            </svg>,
-      title: "Media and Entertainment Services",
-      description: "The media and entertainment industry requires specialized legal support to navigate contracts, licensing, production rights, and dispute resolution. Our firm assists artists, producers, broadcasters, and digital platforms in managing legal complexities within film, television, music, gaming, and online content."
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      ),
+      title: "Media and Entertainment",
+      description: "We are your legal team for the media industry, handling the agreements and negotiations that bring your work to the screen and the stage.",
+      points: [
+        "Film & Music all end-to-end Agreements",
+        "Creator & Talent management Agreements",
+        "Content Licensing & Distribution",
+        "Film & music business consulting",
+        "Compliances & clearances"
+      ]
     },
     {
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>,
-      title: "Analytical Services",
-      description: "We provide in-depth analytical services to support informed decision-making for individuals and businesses. Our approach involves legal research, case analysis, compliance assessments, due diligence, and risk evaluation, enabling clients to better understand the implications of their actions and strategies."
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      ),
+      title: "Technology Law",
+      description: "We provide cutting-edge legal guidance for technology companies, from startups to established firms.",
+      points: [
+        "Data Privacy & Protection",
+        "IT & E-commerce Compliance",
+        "SaaS, Software & Technology Agreements"
+      ]
     },
     {
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>,
-      title: "Legal Services",
-      description: "We offer a wide range of legal services covering litigation, corporate law, regulatory compliance, dispute resolution, and advisory support. Our experienced team represents clients across courts, tribunals, and arbitration forums, ensuring strong advocacy and effective results."
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+      ),
+      title: "Business Audit & Corporate Advisory",
+      description: "We provide the essential legal support that helps businesses operate smoothly and scale securely.",
+      points: [
+        "Startup/Company Formation & Legal Structuring",
+        "Contract Drafting & Negotiation",
+        "Employment & Labor Law compliances",
+        "Tax compliances",
+        "Mergers & Acquisitions, corporate structuring"
+      ]
     }
   ];
 
@@ -51,13 +86,13 @@ const ServicesSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group hover:-translate-y-2"
+              className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group hover:-translate-y-2 flex flex-col"
             >
-              <div className="p-8 h-full flex flex-col">
+              <div className="p-8 flex flex-col h-full">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-50 to-blue-100 rounded-full flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
                   <div className="text-amber-600 group-hover:text-amber-700 transition-colors duration-300">
                     {service.icon}
@@ -66,9 +101,14 @@ const ServicesSection = () => {
                 <h3 className="text-xl font-semibold text-center mb-4 text-gray-900 group-hover:text-amber-600 transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 text-center mb-6 leading-relaxed flex-grow">
+                <p className="text-gray-600 text-center mb-4 leading-relaxed">
                   {service.description}
                 </p>
+                <ul className="list-disc list-inside text-gray-600 text-sm mx-auto space-y-1 mb-6">
+                  {service.points?.map((point, idx) => (
+                    <li key={idx}>{point}</li>
+                  ))}
+                </ul>
                 <div className="text-center mt-auto">
                   <Link
                     to="/contact"

@@ -4,16 +4,19 @@ import WhatWeDo from '../Components/About/WhatWeDo'
 import WhatToExpect from '../Components/About/WhatToExpect'
 import LawyersGallery from '../Components/About/LawyersGallery'
 import Vision from '../Components/About/Vision'
+import WhyIPgyan from '../Components/About/WhyIPgyan'
 import Strengths from '../Components/About/Strengths'
 
 const AboutUs = () => {
     return (
         <div className='flex w-full flex-col items-center justify-center'>
             <Hero />
+            <WhyIPgyan />
             <WhatWeDo />
             <WhatToExpect />
             <LawyersGallery />
             <Vision />
+
             <Strengths />
         </div>
     )

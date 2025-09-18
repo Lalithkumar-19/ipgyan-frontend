@@ -89,33 +89,28 @@ const Footer = () => {
               <li>
                 <a href="#" className="text-gray-300 hover:text-yellow-500 transition-colors text-sm flex items-center">
                   <span className="w-1 h-1 bg-yellow-500 rounded-full mr-3"></span>
-                  Litigation and Dispute Resolution
+                  Intellectual Property
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-300 hover:text-yellow-500 transition-colors text-sm flex items-center">
                   <span className="w-1 h-1 bg-yellow-500 rounded-full mr-3"></span>
-                  Real Estate and Property Law
+                  Media and Entertainment
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-300 hover:text-yellow-500 transition-colors text-sm flex items-center">
                   <span className="w-1 h-1 bg-yellow-500 rounded-full mr-3"></span>
-                  Criminal Rights and Advocacy
+                  Technology Law
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-300 hover:text-yellow-500 transition-colors text-sm flex items-center">
                   <span className="w-1 h-1 bg-yellow-500 rounded-full mr-3"></span>
-                  Taxation and Financial Law
+                  Business Audit & Corporate Advisory
                 </a>
               </li>
-              <li>
-                <a href="#" className="text-gray-300 hover:text-yellow-500 transition-colors text-sm flex items-center">
-                  <span className="w-1 h-1 bg-yellow-500 rounded-full mr-3"></span>
-                  Immigration Law
-                </a>
-              </li>
+             
             </ul>
           </div>
         </div>
@@ -125,8 +120,8 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-400 text-sm">© 2025 IPGYAN , All rights reserved.</p>
             <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-yellow-500 transition-colors text-sm">Privacy Policy</a>
-              <a href="#" className="text-gray-400 hover:text-yellow-500 transition-colors text-sm">Terms of Use</a>
+              <a href="https://www.onlyusmedia.in" target='_blank' className="text-gray-400 hover:text-yellow-500 transition-colors text-sm">Designed & developed by Onlyusmedia.in</a>
+              {/* <a href="#" className="text-gray-400 hover:text-yellow-500 transition-colors text-sm">Terms of Use</a> */}
             </div>
           </div>
         </div>

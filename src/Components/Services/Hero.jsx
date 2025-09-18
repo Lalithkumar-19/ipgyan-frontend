@@ -104,9 +104,9 @@ const Hero = () => {
           {/* Trust indicators */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 md:pt-12">
             {[
-              { value: "25+", label: "Years Experience" },
-              { value: "500+", label: "Cases Won" },
-              { value: "95%", label: "Success Rate" },
+              { value: "6+", label: "Years Experience" },
+              { value: "100+", label: "Cases Won" },
+              { value: "98%", label: "Success Rate" },
               { value: "24/7", label: "Availability" }
             ].map((item, index) => (
               <div key={index} className="text-center p-3 bg-white/10 backdrop-blur-sm rounded-lg">

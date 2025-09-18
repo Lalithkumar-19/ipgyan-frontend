@@ -23,17 +23,17 @@ const Navbar = () => {
             link: "/aboutus"
         }, 
         {
-            name: "Services",
-            link: "/services"
+            name: "Practice Areas",
+            link: "/practiceareas"
         }, 
         {
             name: "Blog",
             link: "/blog"
         }, 
-        {
-            name: "Practice Areas",
-            link: "/practiceareas"
-        }, 
+        // {
+        //     name: "Practice Areas",
+        //     link: "/practiceareas"
+        // }, 
         // {
         //     name: "Testimonials",
         //     link: "/testimonials"

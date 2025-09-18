@@ -130,7 +130,7 @@ const WhatWeDo = () => {
                     stroke="currentColor"
                 >
                     <path
-                        strokeLinecap="round"
+                        strokeLinecap="round"   
                         strokeLinejoin="round"
                         strokeWidth={1.5}
                         d="M4 6h16M4 10h16M4 14h10M4 18h10"
