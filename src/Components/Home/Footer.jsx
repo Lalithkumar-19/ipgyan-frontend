@@ -23,24 +23,24 @@ const Footer = () => {
             
             {/* Social Icons */}
             <div className="flex space-x-3">
-              <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors cursor-pointer">
+              <a target='_blank' href='https://www.facebook.com/ipgyan'  className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors cursor-pointer">
                 <Facebook size={16} className="text-slate-800" />
-              </div>
-              <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors cursor-pointer">
+              </a>
+              {/* <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors cursor-pointer">
                 <Twitter size={16} className="text-slate-800" />
-              </div>
-              <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors cursor-pointer">
+              </div> */}
+              <a href='https://in.linkedin.com/company/ipgyan' target='_blank' className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors cursor-pointer">
                 <Linkedin size={16} className="text-slate-800" />
-              </div>
-              <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors cursor-pointer">
+              </a>
+              <a href='https://www.instagram.com/ipgyan/' target='_blank' className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors cursor-pointer">
                 <Instagram size={16} className="text-slate-800" />
-              </div>
+              </a>
             </div>
             
             {/* Open Hours */}
             <div>
-              <h3 className="text-yellow-500 font-semibold mb-2">Open hour</h3>
-              <p className="text-gray-300 text-sm">Monday - Friday: 9:00 AM - 6:00 PM</p>
+              <h3 className="text-yellow-500 font-semibold mb-2">Open hour's</h3>
+              <p className="text-gray-300 text-sm">Monday - Saturday: 10:00 AM - 8:00 PM</p>
             </div>
           </div>
           
@@ -54,8 +54,8 @@ const Footer = () => {
                   <span className="text-slate-800 text-xs">📞</span>
                 </div>
                 <div className="text-sm">
-                  <p className="text-white">+001(23)456-7890</p>
-                  <p className="text-gray-300">+001(23)456</p>
+                  <p className="text-white">+91 70610 34958</p>
+                  {/* <p className="text-gray-300">+001(23)456</p> */}
                 </div>
               </div>
               
@@ -64,8 +64,8 @@ const Footer = () => {
                   <span className="text-slate-800 text-xs">✉</span>
                 </div>
                 <div className="text-sm">
-                  <p className="text-white">ipgyan@gmail.com</p>
-                  <p className="text-gray-300">support@gmail.com</p>
+                  <p className="text-white">contact@ipgyan.com</p>
+                  <p className="text-gray-300">shail@ipgyan.com</p>
                 </div>
               </div>
               
@@ -74,8 +74,8 @@ const Footer = () => {
                   <span className="text-slate-800 text-xs">📍</span>
                 </div>
                 <div className="text-sm">
-                  <p className="text-white">India</p>
-                  <p className="text-gray-300">Mumbai ,09876765</p>
+                  <p className="text-white">C-22, Sammilani Park Rd, near Satyajit Ray Metro Station Road, near Hiland Park, Survey Park, Santoshpur, Kolkata</p>
+                  <p className="text-gray-300">West Bengal 700075</p>
                 </div>
               </div>
             </div>

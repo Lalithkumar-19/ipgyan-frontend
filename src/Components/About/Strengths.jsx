@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
+import { Whatsappsender } from '../../utils';
 
 const Strengths = () => {
 
@@ -9,8 +10,8 @@ const Strengths = () => {
     const titleRef = useRef(null);
     const descRef = useRef(null);
     const strengthsRef = useRef([]);
-    const navigate=useNavigate();
-    
+    const navigate = useNavigate();
+
     const [ref, inView] = useInView({
         threshold: 0.2,
         triggerOnce: true
@@ -26,27 +27,27 @@ const Strengths = () => {
     useEffect(() => {
         if (inView) {
             const tl = gsap.timeline();
-            
+
             tl.fromTo(titleRef.current,
                 { y: 50, opacity: 0 },
                 { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
             )
-            .fromTo(descRef.current,
-                { y: 30, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" },
-                "-=0.4"
-            )
-            .fromTo(strengthsRef.current,
-                { y: 40, opacity: 0 },
-                { 
-                    y: 0, 
-                    opacity: 1, 
-                    duration: 0.7, 
-                    stagger: 0.15,
-                    ease: "power2.out" 
-                },
-                "-=0.3"
-            );
+                .fromTo(descRef.current,
+                    { y: 30, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" },
+                    "-=0.4"
+                )
+                .fromTo(strengthsRef.current,
+                    { y: 40, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.7,
+                        stagger: 0.15,
+                        ease: "power2.out"
+                    },
+                    "-=0.3"
+                );
         }
     }, [inView]);
 
@@ -94,32 +95,32 @@ const Strengths = () => {
     ];
 
     return (
-        <section 
+        <section
             ref={sectionRef}
             className="py-16 md:py-24 bg-white px-4 sm:px-6 lg:px-8 relative overflow-hidden"
         >
             {/* Decorative elements */}
-           
-            
-            <div 
+
+
+            <div
                 ref={ref}
                 className="max-w-7xl mx-auto relative z-10"
             >
                 {/* Section Header */}
                 <div className="text-center mb-12 md:mb-16">
-                    <h2 
+                    <h2
                         ref={titleRef}
                         className="text-3xl md:text-4xl lg:text-4xl font-bold text-amber-500 font-inria"
                     >
                         Strengths & Values
                     </h2>
                     {/* <div className="w-24 h-1 bg-amber-500 mx-auto my-4"></div> */}
-                    <p 
+                    <p
                         ref={descRef}
                         className="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto mt-6 font-inria"
                     >
-                        At IPGYAN, we believe in being business enablers while providing innovative legal solutions. 
-                        Our commitment to excellence has positioned us among the most trusted law firms, recognized 
+                        At IPGYAN, we believe in being business enablers while providing innovative legal solutions.
+                        Our commitment to excellence has positioned us among the most trusted law firms, recognized
                         for our quality delivery and client-focused approach.
                     </p>
                 </div>
@@ -127,7 +128,7 @@ const Strengths = () => {
                 {/* Strengths Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
                     {strengths.map((strength, index) => (
-                        <div 
+                        <div
                             key={index}
                             ref={addToStrengthsRef}
                             className="bg-gray-50 rounded-2xl p-6 md:p-8 hover:shadow-lg transition-all duration-500 group"
@@ -139,7 +140,7 @@ const Strengths = () => {
                                         {strength.icon}
                                     </div>
                                 </div>
-                                
+
                                 {/* Content */}
                                 <div>
                                     <h3 className="text-xl font-bold text-gray-900 mb-3 font-inria group-hover:text-blue-700 transition-colors">
@@ -155,7 +156,7 @@ const Strengths = () => {
                 </div>
 
                 {/* Awards Recognition */}
-                <div 
+                <div
                     ref={addToStrengthsRef}
                     className="mt-16 p-8 md:p-10 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 text-center"
                 >
@@ -163,7 +164,7 @@ const Strengths = () => {
                         Award-Winning Excellence
                     </h3>
                     <p className="text-gray-700 max-w-3xl mx-auto">
-                        Our firm's prompt and quality delivery has been recognized by clients and industry peers, 
+                        Our firm's prompt and quality delivery has been recognized by clients and industry peers,
                         earning us several prestigious awards and placing us among the top trusted law firms in India.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4 mt-6">
@@ -180,11 +181,10 @@ const Strengths = () => {
                     <p className="text-lg text-gray-700 mb-6">
                         Experience the IPGYAN difference – where legal expertise meets business acumen.
                     </p>
-                    <button 
-                    onClick={()=>{
-                        navigate('/contact')
-                    }}
-                    className="px-8 py-3 cursor-pointer bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition-colors shadow-md">
+                    <button
+                        onClick={
+                            Whatsappsender}
+                        className="px-8 py-3 cursor-pointer bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition-colors shadow-md">
                         Connect With Us
                     </button>
                 </div>

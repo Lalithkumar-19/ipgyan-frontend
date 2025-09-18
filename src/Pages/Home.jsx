@@ -15,7 +15,7 @@ const Home = () => {
         <div className='flex flex-col w-full'>
             <Hero />
             <Services />
-            <ClientShowcase />
+            {/* <ClientShowcase /> */}
             <OurLawyers />
             <Testimonial />
             <BlogSection />

@@ -27,7 +27,7 @@ const Navbar = () => {
             link: "/practiceareas"
         }, 
         {
-            name: "Blog",
+            name: "Blog",   
             link: "/blog"
         }, 
         // {

@@ -162,7 +162,7 @@ const ContactUs = () => {
             </div>
             <p className="text-gray-600 ml-11">Please visit us to have a discussion.</p>
             <p className="text-gray-500 ml-11 text-sm">
-              Mumbai ,india
+            C-22, Sammilani Park Rd, near Satyajit Ray Metro Station Road, near Hiland Park, Survey Park, Santoshpur, Kolkata, West Bengal 700075
             </p>
           </div>
 
@@ -175,7 +175,7 @@ const ContactUs = () => {
               <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
             </div>
             <p className="text-gray-600 ml-11">Please speak with us directly.</p>
-            <p className="text-gray-900 ml-11 font-medium">91 99878736763</p>
+            <p className="text-gray-900 ml-11 font-medium">91 70610 34958</p>
           </div>
 
           {/* Email */}
@@ -187,7 +187,7 @@ const ContactUs = () => {
               <h3 className="text-lg font-semibold text-gray-900">Email</h3>
             </div>
             <p className="text-gray-600 ml-11">Please write to us directly.</p>
-            <p className="text-gray-900 ml-11 font-medium">ipgyan@gmail.com</p>
+            <p className="text-gray-900 ml-11 font-medium">contact@ipgyan.com</p>
           </div>
 
           {/* Opening Hours */}
@@ -202,7 +202,7 @@ const ContactUs = () => {
             <div className="ml-11 space-y-1">
               <div className="flex gap-5 text-sm">
                 <span className="text-gray-600">Mon - Sat</span>
-                <span className="text-gray-900">9am - 5pm</span>
+                <span className="text-gray-900">10am - 8pm</span>
               </div>
               {/* <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Sat - Sun</span>

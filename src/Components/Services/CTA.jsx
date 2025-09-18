@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 import { Calendar, ArrowRight, Phone } from 'lucide-react';
+import { Whatsappsender } from '../../utils';
 
 const CTA = () => {
     return (
@@ -21,17 +22,17 @@ const CTA = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-6 max-w-2xl mx-auto">
-                        <Link
-                            to="/contact"
-                            className="group bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 text-lg flex items-center justify-center gap-3 shadow-lg hover:shadow-2xl hover:-translate-y-1"
+                        <div
+                            onClick={Whatsappsender}
+                            className="group cursor-pointer bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 text-lg flex items-center justify-center gap-3 shadow-lg hover:shadow-2xl hover:-translate-y-1"
                         >
                             <Calendar className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                             <span>Book a Free Consultation</span>
                             <ArrowRight className="w-5 h-5 opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-2 transition-all duration-300" />
-                        </Link>
+                        </div>
 
                         <a
-                            href="tel:+1234567890"
+                            href="tel:+917061034958"
                             className="group bg-transparent border-2 border-amber-500 text-gray-900 hover:bg-amber-500 px-8 py-4 rounded-xl font-semibold transition-all duration-300 text-lg flex items-center justify-center gap-3 hover:text-white shadow-lg hover:shadow-2xl hover:-translate-y-1"
                         >
                             <Phone className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
@@ -46,7 +47,7 @@ const CTA = () => {
                             href="mailto:info@example.com"
                             className="text-amber-600 hover:text-amber-500 transition-colors duration-300 text-lg"
                         >
-                            info@ipgyan.com
+                            contact@ipgyan.com
                         </a>
                     </div>
                 </div>

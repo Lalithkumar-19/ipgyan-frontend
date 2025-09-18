@@ -148,6 +148,7 @@ const OurTeam = () => {
 
     return (
         <div
+            id='team'
             ref={sectionRef}
             className="w-full md:w-[90%] lg:w-[80%] mx-auto py-10 md:py-12 lg:py-16 bg-white"
         >

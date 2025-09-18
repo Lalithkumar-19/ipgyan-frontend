@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';  
 import { useNavigate } from 'react-router-dom';
+import { Whatsappsender } from '../../utils';
 
 const Hero = () => {
   const heroRef = useRef(null);
@@ -94,9 +95,9 @@ const Hero = () => {
             </button>
             <button
             
-             onClick={()=>navigate('/contact')}
+             onClick={Whatsappsender}
              className="group relative cursor-pointer bg-amber-400 hover:bg-amber-500 text-white px-6 py-3 md:px-8 md:py-4 text-lg font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
-              <span className="relative z-10">Contact US</span>
+              <span className="relative z-10">Contact Us</span>
               {/* <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div> */}
             </button>
           </div>

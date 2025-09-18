@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
-
+import { Whatsappsender } from '../../utils';
 const Hero = () => {
     const heroRef = useRef(null);
     const textRef = useRef(null);
@@ -109,7 +109,7 @@ const Hero = () => {
                         onMouseLeave={(e) => {
                             gsap.to(e.target, { scale: 1, duration: 0.2 });
                         }}
-                        onClick={() => { navigate('/contact') }}
+                        onClick={Whatsappsender}
                     >
                         <span className="text-black text-lg sm:text-xl md:text-2xl font-normal font-inria cursor-pointer ">
                             Book Your First  Visit

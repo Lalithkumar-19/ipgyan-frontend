@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Whatsappsender } from '../../utils';
 
 const ServicesSection = () => {
   const services = [
@@ -123,15 +124,15 @@ const ServicesSection = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16 pt-8 border-t border-gray-200">
+        <div className="cursor-pointer text-center mt-16 pt-8 border-t border-gray-200">
           <p className="text-gray-900 mb-6">Not sure which service you need?</p>
-          <Link
-            to="/contact"
+          <div
+            onclick={Whatsappsender}
             className="inline-flex items-center bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg"
           >
             Get a Free Consultation
             <ArrowRight className="w-5 h-5 ml-2" />
-          </Link>
+          </div>
         </div>
       </div>
     </section>

@@ -9,26 +9,38 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Services from './Pages/Services';
 import PracticeAreas from './Pages/PracticeAreas';
 import ContactUs from './Pages/ContactUs';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './routes/ProtectedRoute';
+import AdminLogin from './Pages/AdminLogin';
+import AdminDashboard from './Pages/AdminDashboard';
 
 function App() {
   return (
     <Router>
-      <div className='flex flex-col w-full overflow-x-hidden  '>
-        <Navbar />
-        <div className='flex flex-col w-full mt-15' >
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path='/aboutus' element={<AboutUs />} />
-            <Route path='/blog' element={<Blogs />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
-            <Route path="/practiceareas" element={<Services />} />
-            {/* <Route path="/practiceareas" element={<PracticeAr />} /> */}
-            <Route path="/contact" element={<ContactUs />} />
-          </Routes>
-        </div>
-        <Footer />
-      </div>
+      <AuthProvider>
+        <div className='flex flex-col w-full overflow-x-hidden  '>
+          <Navbar />
+          <div className='flex flex-col w-full mt-15' >
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path='/aboutus' element={<AboutUs />} />
+              <Route path='/blog' element={<Blogs />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
+              <Route path="/practiceareas" element={<Services />} />
+              {/* <Route path="/practiceareas" element={<PracticeAr />} /> */}
+              <Route path="/contact" element={<ContactUs />} />
 
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
+      </AuthProvider>
     </Router>
   )
 }

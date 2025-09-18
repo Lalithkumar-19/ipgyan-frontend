@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Whatsappsender } from '../../utils';
 
 const IndustriesSection = () => {
   const industries = [
@@ -119,15 +120,15 @@ const IndustriesSection = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16 pt-8 border-t border-gray-200">
+        <div className="text-center mt-16 pt-8 border-t border-gray-200 cursor-pointer">
           <p className="text-gray-900 mb-6">Looking for industry-specific legal support?</p>
-          <Link
-            to="/contact"
+          <div
+            onClick={Whatsappsender}
             className="inline-flex items-center bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg"
           >
             Get Industry-Specific Consultation
             <ArrowRight className="w-5 h-5 ml-2" />
-          </Link>
+          </div>
         </div>
       </div>
     </section>
