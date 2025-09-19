@@ -16,9 +16,7 @@ const AboutUs = () => {
             <WhatWeDo />
             <WhatToExpect />
             {/* <LawyersGallery /> */}
-
             <Vision />
-
             <Strengths />
         </div>
     )
