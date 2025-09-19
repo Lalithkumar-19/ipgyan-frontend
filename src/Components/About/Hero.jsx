@@ -96,7 +96,7 @@ const Hero = () => {
                         ref={descRef}
                         className="text-base sm:text-lg md:text-xl font-light font-inria leading-relaxed max-w-lg"
                     >
-                        For over One decade, our firm has stood as a beacon of legal excellence, combining deep expertise with compassionate client service to deliver justice and protect rights.
+                        For over six years, our firm has stood as a beacon of legal excellence, combining deep expertise with compassionate client service to deliver justice and protect rights.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 mt-2">
