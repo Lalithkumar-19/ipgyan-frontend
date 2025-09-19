@@ -18,9 +18,9 @@ import {
   Contacts as ContactsIcon,
   Dashboard as DashboardIcon
 } from '@mui/icons-material';
-import BlogsManager from '../components/admin/BlogsManager';
-import NewsletterManager from '../components/admin/NewsletterManager';
-import ContactsManager from '../components/admin/ContactsManager';
+import BlogsManager from '../Components/admin/BlogsManager';
+import NewsletterManager from '../Components/admin/NewsletterManager';
+import ContactsManager from '../Components/admin/ContactsManager';
 
 // Custom styled components
 const DashboardHeader = styled(Card)(({ theme }) => ({
