@@ -110,7 +110,7 @@ const ContactsManager = () => {
   const filteredContacts = useMemo(() => {
     return contacts.filter(contact => {
       const matchesSearch = searchTerm === '' ||
-        contact.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        contact.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
         contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
         contact.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
         contact.message.toLowerCase().includes(searchTerm.toLowerCase());
@@ -289,7 +289,7 @@ const ContactsManager = () => {
                         {getInitials(contact.fullname)}
                       </Avatar>
                       <div>
-                        <div className="font-medium">{contact.fullName}</div>
+                        <div className="font-medium">{contact.fullname}</div>
                         <div className="text-sm text-gray-500 flex items-center">
                           <EmailIcon sx={{ fontSize: 14, mr: 0.5 }} />
                           {contact.email}
@@ -389,7 +389,7 @@ const ContactsManager = () => {
                     {getInitials(selectedContact.fullname)}
                   </Avatar>
                   <div>
-                    <Typography variant="h6">{selectedContact.fullName}</Typography>
+                    <Typography variant="h6">{selectedContact.fullname}</Typography>
                     <Typography variant="body2" color="textSecondary">
                       Submitted on {formatDate(selectedContact.createdAt)}
                     </Typography>
@@ -462,7 +462,7 @@ const ContactsManager = () => {
           <DialogTitle>Delete Contact</DialogTitle>
           <DialogContent>
             <Typography>
-              Are you sure you want to delete the contact from {contactToDelete?.fullName}?
+              Are you sure you want to delete the contact from {contactToDelete?.fullname}?
               This action cannot be undone.
             </Typography>
           </DialogContent>

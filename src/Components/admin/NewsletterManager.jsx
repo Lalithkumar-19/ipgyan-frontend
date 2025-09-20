@@ -29,6 +29,8 @@ import {
   Api
 } from '@mui/icons-material';
 import { api } from '../../utils';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const STORAGE_KEY = 'newsletter_subscribers';
 
@@ -38,13 +40,10 @@ const NewsletterManager = () => {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [editingSubscriber, setEditingSubscriber] = useState(null);
-  const [newEmail, setNewEmail] = useState('');
-  const [newName, setNewName] = useState('');
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
   const quillRef = useRef(null);
   const editorRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   // Newsletter state
   const [subject, setSubject] = useState('');
@@ -132,20 +131,6 @@ const NewsletterManager = () => {
     );
   }, [subscribers, search]);
 
-  const handleAddSubscriber = () => {
-    setEditingSubscriber(null);
-    setNewEmail('');
-    setNewName('');
-    setOpenDialog(true);
-  };
-
-  const handleEditSubscriber = (subscriber) => {
-    setEditingSubscriber(subscriber);
-    setNewEmail(subscriber.email);
-    setNewName(subscriber.name || '');
-    setOpenDialog(true);
-  };
-
 
 
   const handleDeleteSubscriber = async (id) => {
@@ -162,11 +147,14 @@ const NewsletterManager = () => {
     }
   };
 
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
 
 
 
 
-  const sendNewsletter = () => {
+  const sendNewsletter = async () => {
     if (!subject) {
       setSnackbar({ open: true, message: 'Please enter a subject', severity: 'error' });
       return;
@@ -177,26 +165,45 @@ const NewsletterManager = () => {
       return;
     }
 
-    const emailCount = subscribers.length;
-    setSnackbar({
-      open: true,
-      message: `Newsletter sent to ${emailCount} subscriber${emailCount !== 1 ? 's' : ''}`,
-      severity: 'success'
-    });
+    try {
+      setLoading(true);
+      const res = await api.post("/send-email", {
+        subject,
+        html: quillRef.current?.root?.innerHTML || body,
+        text: body.replace(/<[^>]*>?/gm, '') // Add plain text version
+      });
 
-    // Reset form
-    setSubject('');
-    if (quillRef.current) {
-      quillRef.current.root.innerHTML = '';
+      if (res.status === 200) {
+        // Get the count of active subscribers
+        const activeSubscribers = subscribers.filter(s => !s.unsubscribed);
+        const emailCount = activeSubscribers.length;
+
+        setSnackbar({
+          open: true,
+          message: `Newsletter sent to ${emailCount} subscriber${emailCount !== 1 ? 's' : ''}`,
+          severity: 'success'
+        });
+
+        // Reset form
+        setSubject('');
+        setBody('');
+        if (quillRef.current) {
+          quillRef.current.root.innerHTML = '';
+        }
+      }
+    } catch (error) {
+      console.error('Error sending newsletter:', error);
+      setSnackbar({
+        open: true,
+        message: error.response?.data?.message || 'Failed to send newsletter. Please try again.',
+        severity: 'error'
+      });
+    } finally {
+      setLoading(false);
     }
-    setBody('');
   };
 
-  const handleCloseSnackbar = () => {
-    setSnackbar({ ...snackbar, open: false });
-  };
 
- 
 
   const exportSubscribers = () => {
     const csvContent = subscribers.map(s => `${s.email},${s.name || ''}`).join('\n');
@@ -346,11 +353,12 @@ const NewsletterManager = () => {
               <div className="flex items-center gap-4">
                 <Button
                   variant="contained"
-                  startIcon={<SendIcon />}
+                  color="primary"
                   onClick={sendNewsletter}
-                  sx={{ px: 3, py: 1 }}
+                  disabled={loading}
+                  startIcon={loading ? <CircularProgress size={20} /> : <SendIcon />}
                 >
-                  Send to {subscribers.length} Subscriber{subscribers.length !== 1 ? 's' : ''}
+                  {loading ? 'Sending...' : 'Send Newsletter'}
                 </Button>
 
                 {/* <div className="text-sm text-gray-600">
@@ -361,8 +369,8 @@ const NewsletterManager = () => {
           </div>
         )}
 
-  
-     
+
+
 
         {/* Snackbar for notifications */}
         <Snackbar

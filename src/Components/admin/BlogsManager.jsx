@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 import { api } from '../../utils';
+import { SearchIcon } from 'lucide-react';
 
 // API base (adjust path segments if your backend uses a different route prefix)
 
@@ -40,6 +41,9 @@ const BlogsManager = () => {
   const quillRef = useRef(null);
   const editorRef = useRef(null);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
+  const blogsPerPage = 5;
   const loadBlogs = async () => {
     try {
       setError('');
@@ -137,7 +141,7 @@ const BlogsManager = () => {
     }
   };
 
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.title || isEmptyContent(form.content) || !form.description || !form.image || !form.category || form.tags.length === 0) {
@@ -199,13 +203,29 @@ const BlogsManager = () => {
     setForm({ ...form, tags: form.tags.filter(tag => tag !== tagToRemove) });
   };
 
+
+  // Filter blogs based on search term
+  const filteredBlogs = blogs.filter(blog =>
+    blog.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Pagination logic
+  const indexOfLastBlog = currentPage * blogsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+  const currentBlogs = filteredBlogs.slice(indexOfFirstBlog, indexOfLastBlog);
+  const totalPages = Math.ceil(filteredBlogs.length / blogsPerPage);
+
+  // Reset to first page when search term changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-2">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
+        {/* <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Blog Management System</h1>
           <p className="mt-2 text-lg text-gray-600">Create and manage your blog posts</p>
-        </div>
+        </div> */}
 
         {/* Tab Navigation */}
         <div className="flex border-b border-gray-200 mb-6">
@@ -308,22 +328,17 @@ const BlogsManager = () => {
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700 flex items-center">
                     Category
-                    <span className="text-red-500 ml-1">*</span>
+                    <span className="text-red-500 ml-1">*</span> &nbsp;
+                    <p className="text-xs text-gray-500">If category is already created for earlier posts, then enter that category name exactly</p>
                   </label>
-                  <select
+                  <input
+                    type="text"
                     className="w-full border border-gray-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 rounded-lg px-4 py-3 outline-none transition"
+                    placeholder="Enter category"
                     value={form.category}
                     onChange={e => setForm({ ...form, category: e.target.value })}
                     required
-                  >
-                    <option value="">Select a category</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Lifestyle">Lifestyle</option>
-                    <option value="Travel">Travel</option>
-                    <option value="Food">Food</option>
-                    <option value="Health">Health</option>
-                    <option value="Business">Business</option>
-                  </select>
+                  />
                 </div>
 
                 <div className="space-y-2">
@@ -413,6 +428,23 @@ const BlogsManager = () => {
           ) : (
             /* Existing Blogs List */
             <div>
+              {/* Search Bar */}
+              <div className="mb-6">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <SearchIcon className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 sm:text-sm"
+                    placeholder="Search blogs by title..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+              </div>
+
+
               <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-blue-100">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold text-blue-900">Existing Blog Posts</h3>
@@ -439,10 +471,19 @@ const BlogsManager = () => {
                   </div>
                 ) : (
                   <div className="space-y-6">
-                    {blogs.map((b) => (
+                    {currentBlogs.map((b) => (
                       <div key={b.id || b._id} className="rounded-lg border border-gray-200 p-5 hover:shadow-md transition">
                         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                           <div className="flex-1">
+                            {b.image && (
+                              <div className="mt-4">
+                                <img
+                                  src={b.image}
+                                  alt={b.title}
+                                  className="w-[300px] h-48 object-cover rounded-lg"
+                                />
+                              </div>
+                            )}
                             <h4 className="font-semibold text-gray-900 text-lg">{b.title}</h4>
                             <p className="text-sm text-gray-600 mt-1 line-clamp-2">{b.description}</p>
 
@@ -500,29 +541,22 @@ const BlogsManager = () => {
                           </div>
                         </div>
 
-                        {b.image && (
-                          <div className="mt-4">
-                            <img
-                              src={b.image}
-                              alt={b.title}
-                              className="w-full h-48 object-cover rounded-lg"
-                            />
-                          </div>
-                        )}
 
-                        {b.content && (
+
+                        {/* {b.content && (
                           <div className="prose prose-sm max-w-none mt-4 quill-content" dangerouslySetInnerHTML={{ __html: b.content }} />
-                        )}
+                        )} */}
                       </div>
-                    ))}
 
-                    {blogs.length === 0 && (
+                    ))}
+                    
+                    {currentBlogs.length === 0 && (
                       <div className="text-center py-8">
                         <svg className="w-16 h-16 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
-                        <h3 className="mt-4 text-lg font-medium text-gray-900">No blog posts yet</h3>
-                        <p className="mt-1 text-gray-500">Get started by creating your first blog post!</p>
+                        <h3 className="mt-4 text-lg font-medium text-gray-900">No blog posts found</h3>
+                        <p className="mt-1 text-gray-500">create a blog post!</p>
                         <button
                           onClick={() => setActiveTab('create')}
                           className="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
@@ -534,7 +568,37 @@ const BlogsManager = () => {
                         </button>
                       </div>
                     )}
+                    {/* Pagination Controls */}
+                    {filteredBlogs.length > 0 && (
+                      <div className="flex items-center justify-between mt-6 border-t border-gray-200 pt-4">
+                        <div className="text-sm text-gray-600">
+                          Showing <span className="font-medium">{indexOfFirstBlog + 1}</span> to{' '}
+                          <span className="font-medium">
+                            {Math.min(indexOfLastBlog, filteredBlogs.length)}
+                          </span>{' '}
+                          of <span className="font-medium">{filteredBlogs.length}</span> results
+                        </div>
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                            disabled={currentPage === 1}
+                            className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            Previous
+                          </button>
+                          <button
+                            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                            className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            Next
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
                   </div>
+
                 )}
               </div>
             </div>

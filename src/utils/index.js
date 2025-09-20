@@ -7,7 +7,8 @@ export const Whatsappsender = () => {
     window.open(url, '_blank');
 }
 
-export const api = axios.create({ baseURL: 'http://localhost:3001' ,headers:{
+// 'http://localhost:3001'
+export const api = axios.create({ baseURL:"https://ipgyan-backend.vercel.app" ,headers:{
     "Content-Type":"application/json",
     "Authorization":`Bearer ${localStorage.getItem("admin_token")}`
 }});
