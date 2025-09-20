@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
+import { Calendar, Clock, User, ArrowLeft, LoaderCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { api } from '../utils';
 
@@ -104,7 +104,12 @@ const BlogPost = () => {
     // Return a basic loading state or null during SSR/SSG
     return null;
   }
-
+if(!blogPost){
+  return <div className='flex flex-col items-center justify-center h-screen'>
+    <h2 className='text-3xl font-bold text-center'>loading...</h2>
+    <LoaderCircle className='animate-spin'/>
+  </div>
+}
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
       <div className="mb-8">

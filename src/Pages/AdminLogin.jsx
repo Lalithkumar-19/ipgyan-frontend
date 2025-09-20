@@ -116,7 +116,9 @@ const AdminLogin = () => {
       if(res.status===200){
         localStorage.setItem('admin_token', res.data.token);
         localStorage.setItem('admin_user', res.data.user);
+        setTimeout(()=>{
         navigate('/admin');
+        },3000);
       }else{
         setError(res.data.message);
       }
