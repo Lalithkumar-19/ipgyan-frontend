@@ -35,6 +35,7 @@ import {
   WatchLater as InReviewIcon,
   NewReleases as NewIcon
 } from '@mui/icons-material';
+import { api } from '../../utils';
 
 const STORAGE_KEY = 'contact_submissions';
 
@@ -60,36 +61,62 @@ const ContactsManager = () => {
   const [contactToDelete, setContactToDelete] = useState(null);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    // Ensure status exists
-    const normalized = data.map(x => ({ status: 'New', ...x }));
-    setContacts(normalized);
+    const fetchContacts = async () => {
+      try {
+        const response = await api.get('/contacts');
+        console.log(response, "ffvn")
+        if (response.status === 200) {
+          setContacts(response.data)
+        }
+
+      } catch (error) {
+        console.error('Error fetching contacts:', error);
+      }
+    };
+    fetchContacts();
   }, []);
 
-  const updateStatus = (id, status) => {
-    const next = contacts.map(c => c.id === id ? { ...c, status } : c);
-    setContacts(next);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+  const updateStatus = async (id, status) => {
+    try {
+      const res = await api.put(`/contact/${id}`, { status })
+      console.log(res, "res")
+      if (res.status == 200) {
+        setContacts(res.data.data);
+        setDetailOpen(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   };
 
-  const deleteContact = (id) => {
-    const next = contacts.filter(c => c.id !== id);
-    setContacts(next);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    setDeleteConfirmOpen(false);
-    setContactToDelete(null);
+  const deleteContact = async (id) => {
+    try {
+      const res = await api.delete(`/contact/${id}`);
+      console.log(res, "res")
+      if (res.status == 200) {
+        setContacts(res.data.data);
+        setDeleteConfirmOpen(false);
+        setContactToDelete(null);
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+
   };
 
   const filteredContacts = useMemo(() => {
     return contacts.filter(contact => {
-      const matchesSearch = searchTerm === '' || 
+      const matchesSearch = searchTerm === '' ||
         contact.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
         contact.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
         contact.message.toLowerCase().includes(searchTerm.toLowerCase());
-      
+
       const matchesStatus = statusFilter === 'All' || contact.status === statusFilter;
-      
+
       return matchesSearch && matchesStatus;
     });
   }, [contacts, searchTerm, statusFilter]);
@@ -125,7 +152,7 @@ const ContactsManager = () => {
   };
 
   const getInitials = (name) => {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+    return name.split(' ')[0][0].toUpperCase();
   };
 
   return (
@@ -153,7 +180,7 @@ const ContactsManager = () => {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-white shadow">
             <CardContent className="flex items-center">
               <Avatar className="bg-amber-100 text-amber-600 mr-4">
@@ -169,7 +196,7 @@ const ContactsManager = () => {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-white shadow">
             <CardContent className="flex items-center">
               <Avatar className="bg-green-100 text-green-600 mr-4">
@@ -185,7 +212,7 @@ const ContactsManager = () => {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-white shadow">
             <CardContent className="flex items-center">
               <Avatar className="bg-gray-100 text-gray-600 mr-4">
@@ -215,7 +242,7 @@ const ContactsManager = () => {
             }}
             sx={{ minWidth: 250 }}
           />
-          
+
           <TextField
             size="small"
             select
@@ -231,9 +258,9 @@ const ContactsManager = () => {
               </MenuItem>
             ))}
           </TextField>
-          
+
           <div className="flex-grow"></div>
-          
+
           <Typography variant="body2" color="textSecondary">
             Showing {filteredContacts.length} of {contacts.length} contacts
           </Typography>
@@ -245,6 +272,7 @@ const ContactsManager = () => {
             <TableHead>
               <TableRow className="bg-gray-100">
                 <TableCell>Contact</TableCell>
+                <TableCell>Name</TableCell>
                 <TableCell>Subject</TableCell>
                 <TableCell>Message Preview</TableCell>
                 <TableCell>Date</TableCell>
@@ -258,7 +286,7 @@ const ContactsManager = () => {
                   <TableCell>
                     <div className="flex items-center">
                       <Avatar className="bg-blue-500 text-white mr-3" sx={{ width: 32, height: 32 }}>
-                        {getInitials(contact.fullName)}
+                        {getInitials(contact.fullname)}
                       </Avatar>
                       <div>
                         <div className="font-medium">{contact.fullName}</div>
@@ -276,18 +304,22 @@ const ContactsManager = () => {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div className="font-medium">{contact.subject}</div>
+                    <div className="font-medium">{contact.fullname}</div>
                   </TableCell>
                   <TableCell>
+                    <div className="font-medium">{contact.subject}</div>
+                  </TableCell>
+
+                  <TableCell>
                     <div className="text-sm text-gray-600 line-clamp-2">
-                      {contact.message.length > 100 
-                        ? `${contact.message.substring(0, 100)}...` 
+                      {contact.message.length > 100
+                        ? `${contact.message.substring(0, 100)}...`
                         : contact.message}
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className="text-sm text-gray-500">
-                      {formatDate(contact.date || contact.id)}
+                      {formatDate(contact.createdAt)}
                     </div>
                   </TableCell>
                   <TableCell>
@@ -300,8 +332,8 @@ const ContactsManager = () => {
                   </TableCell>
                   <TableCell align="center">
                     <Tooltip title="View Details">
-                      <IconButton 
-                        size="small" 
+                      <IconButton
+                        size="small"
                         color="primary"
                         onClick={() => handleViewDetails(contact)}
                       >
@@ -309,8 +341,8 @@ const ContactsManager = () => {
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
-                      <IconButton 
-                        size="small" 
+                      <IconButton
+                        size="small"
                         color="error"
                         onClick={() => handleDeleteClick(contact)}
                       >
@@ -324,8 +356,8 @@ const ContactsManager = () => {
                 <TableRow>
                   <TableCell colSpan={6} align="center" className="p-8">
                     <div className="text-gray-500">
-                      {contacts.length === 0 
-                        ? 'No contact submissions yet.' 
+                      {contacts.length === 0
+                        ? 'No contact submissions yet.'
                         : 'No contacts match your search criteria.'}
                     </div>
                   </TableCell>
@@ -354,17 +386,24 @@ const ContactsManager = () => {
               <div className="space-y-4">
                 <div className="flex items-center mb-4">
                   <Avatar className="bg-blue-500 text-white mr-3" sx={{ width: 40, height: 40 }}>
-                    {getInitials(selectedContact.fullName)}
+                    {getInitials(selectedContact.fullname)}
                   </Avatar>
                   <div>
                     <Typography variant="h6">{selectedContact.fullName}</Typography>
                     <Typography variant="body2" color="textSecondary">
-                      Submitted on {formatDate(selectedContact.date || selectedContact.id)}
+                      Submitted on {formatDate(selectedContact.createdAt)}
                     </Typography>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Typography variant="subtitle2" color="textSecondary">Name</Typography>
+                    <Typography className="flex items-center">
+                      <EmailIcon sx={{ fontSize: 16, mr: 1 }} />
+                      {selectedContact.fullname}
+                    </Typography>
+                  </div>
                   <div>
                     <Typography variant="subtitle2" color="textSecondary">Email</Typography>
                     <Typography className="flex items-center">
@@ -404,7 +443,7 @@ const ContactsManager = () => {
                         label={status.label}
                         color={selectedContact.status === status.value ? status.color : 'default'}
                         variant={selectedContact.status === status.value ? 'filled' : 'outlined'}
-                        onClick={() => updateStatus(selectedContact.id, status.value)}
+                        onClick={() => updateStatus(selectedContact._id, status.value)}
                         clickable
                       />
                     ))}
@@ -429,8 +468,8 @@ const ContactsManager = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setDeleteConfirmOpen(false)}>Cancel</Button>
-            <Button 
-              onClick={() => deleteContact(contactToDelete?.id)} 
+            <Button
+              onClick={() => deleteContact(contactToDelete?._id)}
               color="error"
               variant="contained"
             >

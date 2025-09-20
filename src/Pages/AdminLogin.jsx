@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+
 import {
   Box,
   Paper,
@@ -22,13 +22,14 @@ import {
   ArrowBack
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
+import { api } from '../utils';
 
 // Custom styled components
 const LoginContainer = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
   display: 'flex',
-  marginTop:"40px",
-  marginBottom:"40px",
+  marginTop: "40px",
+  marginBottom: "40px",
   alignItems: 'center',
   justifyContent: 'center',
   background: 'white',
@@ -95,16 +96,10 @@ const LoginButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const DemoHint = styled(Box)(({ theme }) => ({
-  background: 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%)',
-  padding: theme.spacing(2),
-  borderRadius: 12,
-  marginTop: theme.spacing(2),
-  border: '1px solid #c7d2fe',
-}));
-
 const AdminLogin = () => {
-  const { login } = useAuth();
+
+
+ 
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -117,8 +112,14 @@ const AdminLogin = () => {
     setError('');
     try {
       setLoading(true);
-      await login({ email, password });
-      navigate('/admin');
+      const res = await api.post("/admin-login", { email, password });
+      if(res.status===200){
+        localStorage.setItem('admin_token', res.data.token);
+        localStorage.setItem('admin_user', res.data.user);
+        navigate('/admin');
+      }else{
+        setError(res.data.message);
+      }
     } catch (err) {
       setError(err.message || 'Login failed. Please check your credentials.');
     } finally {
@@ -126,10 +127,6 @@ const AdminLogin = () => {
     }
   };
 
-  const handleDemoLogin = () => {
-    setEmail('admin@ipgyan.com');
-    setPassword('admin123');
-  };
 
   return (
     <LoginContainer>
@@ -249,16 +246,10 @@ const AdminLogin = () => {
             </LoginButton>
 
             <Divider sx={{ my: 3 }}>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ fontFamily: "'Inter', sans-serif" }}
-              >
-                Demo Access
-              </Typography>
+
             </Divider>
 
-            <DemoHint>
+            {/* <DemoHint>
               <Typography
                 variant="body2"
                 align="center"
@@ -294,7 +285,7 @@ const AdminLogin = () => {
                   Auto-fill Demo Credentials
                 </Button>
               </Box>
-            </DemoHint>
+            </DemoHint> */}
 
             <Box sx={{ textAlign: 'center', mt: 3 }}>
               <Button

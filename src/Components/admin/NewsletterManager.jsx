@@ -25,8 +25,10 @@ import {
   Search as SearchIcon,
   Send as SendIcon,
   Edit as EditIcon,
-  ContentCopy as CopyIcon
+  ContentCopy as CopyIcon,
+  Api
 } from '@mui/icons-material';
+import { api } from '../../utils';
 
 const STORAGE_KEY = 'newsletter_subscribers';
 
@@ -49,8 +51,18 @@ const NewsletterManager = () => {
   const [body, setBody] = useState('');
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    setSubscribers(data);
+    async function Loadsubs() {
+      try {
+        const res = await api.get("/news-letter-req");
+        if (res.status === 200) {
+          setSubscribers(res.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    Loadsubs();
+    // setSubscribers(data);
   }, []);
 
   useEffect(() => {
@@ -116,7 +128,7 @@ const NewsletterManager = () => {
   const filtered = useMemo(() => {
     const s = search.toLowerCase();
     return subscribers.filter(x =>
-      x.email.toLowerCase().includes(s) || (x.name || '').toLowerCase().includes(s)
+      x.email.toLowerCase().includes(s)
     );
   }, [subscribers, search]);
 
@@ -134,52 +146,25 @@ const NewsletterManager = () => {
     setOpenDialog(true);
   };
 
-  const handleSaveSubscriber = () => {
-    if (!newEmail) {
-      setSnackbar({ open: true, message: 'Email is required', severity: 'error' });
-      return;
-    }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(newEmail)) {
-      setSnackbar({ open: true, message: 'Please enter a valid email address', severity: 'error' });
-      return;
-    }
 
-    // Check for duplicate email (if not editing or email changed)
-    if ((!editingSubscriber || newEmail !== editingSubscriber.email) &&
-      subscribers.some(s => s.email === newEmail)) {
-      setSnackbar({ open: true, message: 'This email is already subscribed', severity: 'error' });
-      return;
-    }
+  const handleDeleteSubscriber = async (id) => {
+    try {
 
-    let nextSubscribers;
-    if (editingSubscriber) {
-      // Update existing subscriber
-      nextSubscribers = subscribers.map(s =>
-        s.id === editingSubscriber.id ? { ...s, email: newEmail, name: newName } : s
-      );
-    } else {
-      // Add new subscriber
-      nextSubscribers = [...subscribers, { id: Date.now(), email: newEmail, name: newName }];
-    }
+      const res = await api.delete(`/news-letter-req/${id}`);
+      if (res.status === 200) {
+        setSubscribers(subscribers.filter(x => x._id !== id));
+        setSnackbar({ open: true, message: "Subscriber deleted successfully", severity: "success" })
+      }
+    } catch (error) {
+      console.log(error);
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(nextSubscribers));
-    setSubscribers(nextSubscribers);
-    setOpenDialog(false);
-    setSnackbar({
-      open: true,
-      message: editingSubscriber ? 'Subscriber updated successfully' : 'Subscriber added successfully',
-      severity: 'success'
-    });
+    }
   };
 
-  const handleDeleteSubscriber = (id) => {
-    const next = subscribers.filter(x => x.id !== id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    setSubscribers(next);
-    setSnackbar({ open: true, message: 'Subscriber deleted successfully', severity: 'success' });
-  };
+
+
+
 
   const sendNewsletter = () => {
     if (!subject) {
@@ -211,66 +196,7 @@ const NewsletterManager = () => {
     setSnackbar({ ...snackbar, open: false });
   };
 
-  const handleImportSubscribers = (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const content = e.target.result;
-        const lines = content.split('\n').filter(line => line.trim());
-
-        const newSubscribers = [];
-        const errors = [];
-
-        lines.forEach((line, index) => {
-          const [email, name] = line.split(',').map(item => item.trim());
-
-          if (!email) {
-            errors.push(`Line ${index + 1}: Missing email`);
-            return;
-          }
-
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(email)) {
-            errors.push(`Line ${index + 1}: Invalid email format (${email})`);
-            return;
-          }
-
-          if (subscribers.some(s => s.email === email)) {
-            errors.push(`Line ${index + 1}: Email already exists (${email})`);
-            return;
-          }
-
-          newSubscribers.push({ id: Date.now() + index, email, name: name || '' });
-        });
-
-        if (newSubscribers.length > 0) {
-          const nextSubscribers = [...subscribers, ...newSubscribers];
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(nextSubscribers));
-          setSubscribers(nextSubscribers);
-        }
-
-        if (errors.length > 0) {
-          setSnackbar({
-            open: true,
-            message: `Imported ${newSubscribers.length} subscribers, ${errors.length} errors`,
-            severity: errors.length === lines.length ? 'error' : 'warning'
-          });
-        } else {
-          setSnackbar({
-            open: true,
-            message: `Successfully imported ${newSubscribers.length} subscribers`,
-            severity: 'success'
-          });
-        }
-      } catch (error) {
-        setSnackbar({ open: true, message: 'Error importing subscribers', severity: 'error' });
-      }
-    };
-    reader.readAsText(file);
-  };
+ 
 
   const exportSubscribers = () => {
     const csvContent = subscribers.map(s => `${s.email},${s.name || ''}`).join('\n');
@@ -313,15 +239,15 @@ const NewsletterManager = () => {
               />
 
               <div className="flex gap-2 flex-wrap">
-                <Button
+                {/* <Button
                   variant="outlined"
                   startIcon={<AddIcon />}
                   onClick={handleAddSubscriber}
                 >
                   Add Subscriber
-                </Button>
+                </Button> */}
 
-                <Button
+                {/* <Button
                   variant="outlined"
                   component="label"
                   startIcon={<CopyIcon />}
@@ -333,7 +259,7 @@ const NewsletterManager = () => {
                     hidden
                     onChange={handleImportSubscribers}
                   />
-                </Button>
+                </Button> */}
 
                 <Button
                   variant="outlined"
@@ -349,28 +275,28 @@ const NewsletterManager = () => {
                 <TableHead>
                   <TableRow sx={{ backgroundColor: 'grey.100' }}>
                     <TableCell sx={{ fontWeight: 'bold' }}>Email</TableCell>
-                    <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
+                    {/* <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell> */}
                     <TableCell align="right" sx={{ fontWeight: 'bold' }}>Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {filtered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                    <TableRow key={row.id} hover>
+                    <TableRow key={row._id} hover>
                       <TableCell>{row.email}</TableCell>
-                      <TableCell>{row.name || '-'}</TableCell>
+                      {/* <TableCell>{row.name || '-'}</TableCell> */}
                       <TableCell align="right" sx={{ whiteSpace: 'nowrap' }}>
-                        <IconButton
+                        {/* <IconButton
                           size="small"
                           color="primary"
                           onClick={() => handleEditSubscriber(row)}
                           sx={{ mr: 1 }}
                         >
                           <EditIcon />
-                        </IconButton>
+                        </IconButton> */}
                         <IconButton
                           size="small"
                           color="error"
-                          onClick={() => handleDeleteSubscriber(row.id)}
+                          onClick={() => handleDeleteSubscriber(row._id)}
                         >
                           <DeleteIcon />
                         </IconButton>
@@ -427,44 +353,16 @@ const NewsletterManager = () => {
                   Send to {subscribers.length} Subscriber{subscribers.length !== 1 ? 's' : ''}
                 </Button>
 
-                <div className="text-sm text-gray-600">
+                {/* <div className="text-sm text-gray-600">
                   Preview your newsletter before sending
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
         )}
 
-        {/* Add/Edit Subscriber Dialog */}
-        <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="sm" fullWidth>
-          <DialogTitle>
-            {editingSubscriber ? 'Edit Subscriber' : 'Add New Subscriber'}
-          </DialogTitle>
-          <DialogContent>
-            <div className="grid gap-4 mt-2">
-              <TextField
-                label="Email Address"
-                type="email"
-                value={newEmail}
-                onChange={(e) => setNewEmail(e.target.value)}
-                fullWidth
-                required
-              />
-              <TextField
-                label="Name (Optional)"
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-                fullWidth
-              />
-            </div>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-            <Button onClick={handleSaveSubscriber} variant="contained">
-              {editingSubscriber ? 'Update' : 'Add'} Subscriber
-            </Button>
-          </DialogActions>
-        </Dialog>
+  
+     
 
         {/* Snackbar for notifications */}
         <Snackbar

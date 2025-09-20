@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
 import CTA from '../Components/Services/CTA';
+import { api } from '../utils';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -13,7 +14,7 @@ const ContactUs = () => {
     const subtitleRef = useRef(null);
     const contentRef = useRef(null);
     const [formData, setFormData] = useState({
-        name: '',
+        fullname: '',
         email: '',
         phone: '',
         subject: '',
@@ -83,47 +84,98 @@ const ContactUs = () => {
             [name]: value
         }));
     };
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+    const validateForm = () => {
+        const { fullname, email, phone, subject, message } = formData;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\+?[0-9\s-]{7,15}$/;
+
+        if (!fullname || !email || !phone || !subject || !message) {
+            return 'All fields are required';
+        }
+        if (!emailRegex.test(email)) {
+            return 'Please enter a valid email address';
+        }
+        if (!phoneRegex.test(phone)) {
+            return 'Please enter a valid phone number';
+        }
+        return '';
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
+        setSuccess('');
+
+        const validationError = validateForm();
+        if (validationError) {
+            setError(validationError);
+            return;
+        }
+
         setIsSubmitting(true);
-
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
-            // Persist to localStorage for Admin -> Contacts
-            const record = {
-                id: Date.now(),
-                fullName: formData.name,
-                email: formData.email,
-                phone: formData.phone,
-                subject: formData.subject,
-                message: formData.message,
-                status: 'New',
-                date: new Date().toISOString()
-            };
-            const key = 'contact_submissions';
-            const existing = JSON.parse(localStorage.getItem(key) || '[]');
-            existing.push(record);
-            localStorage.setItem(key, JSON.stringify(existing));
-
-            setSubmitStatus('success');
-            setFormData({
-                name: '',
-                email: '',
-                phone: '',
-                subject: '',
-                message: ''
-            });
-        } catch (error) {
-            setSubmitStatus('error');
+            const response = await api.post('/contact', formData);
+            if (response.status === 200) {
+                setSuccess('Your message has been sent successfully!');
+                // Reset form
+                setFormData({
+                    fullname: '',
+                    email: '',
+                    phone: '',
+                    subject: '',
+                    message: ''
+                });
+            } else {
+                setError('Failed to send message. Please try again.');
+            }
+        } catch (err) {
+            setError(err.response?.data?.message || 'An error occurred. Please try again.');
         } finally {
             setIsSubmitting(false);
-            // Reset status after 5 seconds
-            setTimeout(() => setSubmitStatus(null), 5000);
         }
     };
+
+    //     e.preventDefault();
+    //     setIsSubmitting(true);
+
+    //     try {
+    //         // Simulate API call
+    //         await new Promise(resolve => setTimeout(resolve, 1500));
+
+    //         // Persist to localStorage for Admin -> Contacts
+    //         const record = {
+    //             id: Date.now(),
+    //             fullName: formData.name,
+    //             email: formData.email,
+    //             phone: formData.phone,
+    //             subject: formData.subject,
+    //             message: formData.message,
+    //             status: 'New',
+    //             date: new Date().toISOString()
+    //         };
+    //         const key = 'contact_submissions';
+    //         const existing = JSON.parse(localStorage.getItem(key) || '[]');
+    //         existing.push(record);
+    //         localStorage.setItem(key, JSON.stringify(existing));
+
+    //         setSubmitStatus('success');
+    //         setFormData({
+    //             name: '',
+    //             email: '',
+    //             phone: '',
+    //             subject: '',
+    //             message: ''
+    //         });
+    //     } catch (error) {
+    //         setSubmitStatus('error');
+    //     } finally {
+    //         setIsSubmitting(false);
+    //         // Reset status after 5 seconds
+    //         setTimeout(() => setSubmitStatus(null), 5000);
+    //     }
+    // };
 
     const contactInfo = [
         {
@@ -134,8 +186,8 @@ const ContactUs = () => {
                 </svg>
             ),
             title: "Our Office",
-            content: "1/4 Mukundapur, Kolkata 700099",
-            subcontent: "Near Satyajit Ray Film and Television Institute (SRFTI)"
+            content: "C-22, Sammilani Park Rd, near Satyajit Ray Metro Station Road, near Hiland Park, Survey Park, Santoshpur",
+            subcontent: " Kolkata, West Bengal 700075"
         },
         {
             icon: (
@@ -186,76 +238,7 @@ const ContactUs = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 -mt-3">
-            {/* Hero Section */}
-            {/* <div className="w-full px-3 md:px-20 flex flex-col md:flex-row items-center justify-between py-12 md:py-20  bg-gradient-to-br from-slate-50 to-slate-100 relative overflow-hidden">
-                
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjwvZz48L2c+PC9zdmc+')]"></div>
-                </div>
 
-           
-                <div className="md:mb-12 relative z-10 max-w-2xl">
-                 
-                    <h1 className="text-4xl md:text-5xl font-light text-gray-900 leading-tight max-w-2xl text-center md:text-start animate-fade-in-up">
-                        We're always on the lookout to work with new clients. Please get in touch in one of the following ways.
-                    </h1>
-
-                  
-                    <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center md:justify-start">
-                        <button className="bg-amber-500 hover:bg-amber-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
-                            Schedule a Call
-                        </button>
-                        <button className="border border-amber-500 text-amber-500 hover:bg-amber-50 font-medium py-3 px-6 rounded-lg transition-all duration-300">
-                            Send Message
-                        </button>
-                    </div>
-                </div>
-
-              
-                <div className="relative mt-10 md:mt-0 md:ml-8 animate-float">
-                    <svg
-                        width="382"
-                        height="200"
-                        viewBox="0 0 382 103"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="drop-shadow-lg"
-                    >
-                        <path d="M1 6.61111C13.6667 -0.87037 26.3333 -0.87037 39 6.61111C51.6667 14.0926 64.3333 14.0926 77 6.61111C89.6667 -0.87037 102.333 -0.87037 115 6.61111C127.667 14.0926 140.333 14.0926 153 6.61111C165.667 -0.87037 178.333 -0.87037 191 6.61111C203.667 14.0926 216.333 14.0926 229 6.61111C241.667 -0.87037 254.333 -0.87037 267 6.61111C279.667 14.0926 292.333 14.0926 305 6.61111C317.667 -0.87037 330.333 -0.87037 343 6.61111C355.667 14.0926 368.333 14.0926 381 6.61111" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse" />
-                        <path d="M1 24.5667C13.6667 17.0852 26.3333 17.0852 39 24.5667C51.6667 32.0482 64.3333 32.0482 77 24.5667C89.6667 17.0852 102.333 17.0852 115 24.5667C127.667 32.0482 140.333 32.0482 153 24.5667C165.667 17.0852 178.333 17.0852 191 24.5667C203.667 32.0482 216.333 32.0482 229 24.5667C241.667 17.0852 254.333 17.0852 267 24.5667C279.667 32.0482 292.333 32.0482 305 24.5667C317.667 17.0852 330.333 17.0852 343 24.5667C355.667 32.0482 368.333 32.0482 381 24.5667" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse delay-100" />
-                        <path d="M1 42.5222C13.6667 35.0408 26.3333 35.0408 39 42.5222C51.6667 50.0037 64.3333 50.0037 77 42.5222C89.6667 35.0408 102.333 35.0408 115 42.5222C127.667 50.0037 140.333 50.0037 153 42.5222C165.667 35.0408 178.333 35.0408 191 42.5222C203.667 50.0037 216.333 50.0037 229 42.5222C241.667 35.0408 254.333 35.0408 267 42.5222C279.667 50.0037 292.333 50.0037 305 42.5222C317.667 35.0408 330.333 35.0408 343 42.5222C355.667 50.0037 368.333 50.0037 381 42.5222" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse delay-200" />
-                        <path d="M1 60.4778C13.6667 52.9963 26.3333 52.9963 39 60.4778C51.6667 67.9593 64.3333 67.9593 77 60.4778C89.6667 52.9963 102.333 52.9963 115 60.4778C127.667 67.9593 140.333 67.9593 153 60.4778C165.667 52.9963 178.333 52.9963 191 60.4778C203.667 67.9593 216.333 67.9593 229 60.4778C241.667 52.9963 254.333 52.9963 267 60.4778C279.667 67.9593 292.333 67.9593 305 60.4778C317.667 52.9963 330.333 52.9963 343 60.4778C355.667 67.9593 368.333 67.9593 381 60.4778" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse delay-300" />
-                        <path d="M1 78.4334C13.6667 70.9519 26.3333 70.9519 39 78.4334C51.6667 85.9149 64.3333 85.9149 77 78.4334C89.6667 70.9519 102.333 70.9519 115 78.4334C127.667 85.9149 140.333 85.9149 153 78.4334C165.667 70.9519 178.333 70.9519 191 78.4334C203.667 85.9149 216.333 85.9149 229 78.4334C241.667 70.9519 254.333 70.9519 267 78.4334C279.667 85.9149 292.333 85.9149 305 78.4334C317.667 70.9519 330.333 70.9519 343 78.4334C355.667 85.9149 368.333 85.9149 381 78.4334" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse delay-400" />
-                        <path d="M1 96.3889C13.6667 88.9075 26.3333 88.9075 39 96.3889C51.6667 103.87 64.3333 103.87 77 96.3889C89.6667 88.9075 102.333 88.9075 115 96.3889C127.667 103.87 140.333 103.87 153 96.3889C165.667 88.9075 178.333 88.9075 191 96.3889C203.667 103.87 216.333 103.87 229 96.3889C241.667 88.9075 254.333 88.9075 267 96.3889C279.667 103.87 292.333 103.87 305 96.3889C317.667 88.9075 330.333 88.9075 343 96.3889C355.667 103.87 368.333 103.87 381 96.3889" stroke="#3A3A3A" strokeOpacity="0.1" className="animate-pulse delay-500" />
-                    </svg>
-
-            
-                    <div className="absolute -top-4 -right-4 w-8 h-8 bg-amber-400 rounded-full opacity-20 animate-bounce"></div>
-                    <div className="absolute -bottom-2 -left-4 w-6 h-6 bg-amber-500 rounded-full opacity-30 animate-bounce delay-300"></div>
-                </div>
-
-                <style jsx>{`
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-    .animate-fade-in {
-      animation: fadeIn 0.8s ease-out forwards;
-    }
-    .animate-fade-in-up {
-      opacity: 0;
-      animation: fadeIn 0.8s ease-out 0.2s forwards;
-    }
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
-    }
-  `}</style>
-            </div> */}
             <section
                 ref={heroRef}
                 className="relative pt-28 pb-20 bg-gradient-to-r from-slate-900 to-slate-800 overflow-hidden"
@@ -390,7 +373,7 @@ const ContactUs = () => {
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3686.4301014896205!2d88.38794297475472!3d22.488040636065303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02714fec5edda3%3A0x7e2efdf9f9961677!2sipgyan!5e0!3m2!1sen!2sin!4v1758216356259!5m2!1sen!2sin"
                                     width="100%"
                                     height="300"
-                                    style={{border:0}}
+                                    style={{ border: 0 }}
                                     allowfullscreen=""
                                     loading="lazy"
                                     title='Our Location'
@@ -410,6 +393,16 @@ const ContactUs = () => {
                         >
                             <h2 className="text-3xl font-bold text-slate-900 mb-2">Send us a message</h2>
                             <p className="text-slate-600 mb-8">Fill out the form below and we'll get back to you as soon as possible.</p>
+                            {error && (
+                                <div className="px-4 py-3 rounded bg-red-50 text-red-700 border border-red-200 text-sm">
+                                    {error}
+                                </div>
+                            )}
+                            {success && (
+                                <div className="px-4 py-3 rounded bg-green-50 text-green-700 border border-green-200 text-sm">
+                                    {success}
+                                </div>
+                            )}
 
                             {submitStatus === 'success' && (
                                 <motion.div
@@ -445,8 +438,8 @@ const ContactUs = () => {
                                             <input
                                                 type="text"
                                                 id="name"
-                                                name="name"
-                                                value={formData.name}
+                                                name="fullname"
+                                                value={formData.fullname}
                                                 onChange={handleInputChange}
                                                 className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-colors"
                                                 placeholder="Your name"
@@ -555,7 +548,7 @@ const ContactUs = () => {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className={`w-full flex justify-center py-4 px-6 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                        className={`w-full cursor-pointer flex justify-center py-4 px-6 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                                     >
                                         {isSubmitting ? (
                                             <>

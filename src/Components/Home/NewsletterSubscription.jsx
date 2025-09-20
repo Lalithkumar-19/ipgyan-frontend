@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useInView } from 'react-intersection-observer';
+import { api } from '../../utils';
 
 const NewsletterSubscription = () => {
     const sectionRef = useRef(null);
@@ -43,23 +44,38 @@ const NewsletterSubscription = () => {
         }
     }, [inView]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!email) return;
+        const value = (email || '').trim().toLowerCase();
+
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!value) {
+            // optionally set an error state if present
+            console.error('Email is required');
+            return;
+        }
+        if (!emailRegex.test(value)) {
+            console.error('Please enter a valid email address');
+            return;
+        }
 
         setIsLoading(true);
-
-        // Simulate API call
-        setTimeout(() => {
+        try {
+            const res = await api.post("/news-letter-req", { email: value });
+            if (res.status === 200) {
+                setSubscribed(true);
+                setEmail('');
+                // auto-hide success after a few seconds (optional)
+                setTimeout(() => setSubscribed(false), 5000);
+            } else {
+                console.error(res?.data?.message || 'Subscription failed');
+            }
+        } catch (error) {
+            console.error(error?.response?.data?.message || 'Subscription failed');
+        } finally {
             setIsLoading(false);
-            setSubscribed(true);
-            setEmail('');
-
-            // Reset after 5 seconds
-            setTimeout(() => {
-                setSubscribed(false);
-            }, 5000);
-        }, 1500);
+        }
     };
 
     return (

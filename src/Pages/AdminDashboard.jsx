@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -21,6 +20,8 @@ import {
 import BlogsManager from '../Components/admin/BlogsManager';
 import NewsletterManager from '../Components/admin/NewsletterManager';
 import ContactsManager from '../Components/admin/ContactsManager';
+import { useNavigate } from 'react-router';
+import { api } from '../utils';
 
 // Custom styled components
 const DashboardHeader = styled(Card)(({ theme }) => ({
@@ -74,16 +75,53 @@ function TabPanel(props) {
 }
 
 const AdminDashboard = () => {
-  const { adminUser, logout } = useAuth();
-  const [tab, setTab] = useState(0);
 
+
+  const [tab, setTab] = useState(0);
+  const adminUser = localStorage.getItem("admin_user");
+  const adminToken = localStorage.getItem("admin_token");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!adminToken || !adminUser) {
+      navigate("/admin/login");
+    }
+
+  }, [])
+
+  const logout = () => {
+    localStorage.removeItem("admin_user");
+    localStorage.removeItem("admin_token");
+    navigate("/admin/login");
+  }
+
+  const [dashboardStats, setdashboardStats] = useState([
+    { title: 'Total Blog Posts', value: '0', icon: <BlogIcon />, color: '#10b981' },
+    { title: 'Newsletter Subscribers', value: '0', icon: <NewsletterIcon />, color: '#3b82f6' },
+    { title: 'Contact Messages', value: '0', icon: <ContactsIcon />, color: '#8b5cf6' },
+    { title: 'Unread Messages', value: '0', icon: <ContactsIcon />, color: '#f59e0b' }
+  ])
   // Mock data for dashboard stats
-  const dashboardStats = [
-    { title: 'Total Blog Posts', value: '24', icon: <BlogIcon />, color: '#10b981' },
-    { title: 'Newsletter Subscribers', value: '1,243', icon: <NewsletterIcon />, color: '#3b82f6' },
-    { title: 'Contact Messages', value: '56', icon: <ContactsIcon />, color: '#8b5cf6' },
-    { title: 'Unread Messages', value: '12', icon: <ContactsIcon />, color: '#f59e0b' },
-  ];
+  useEffect(() => {
+    const getDashboardStats = async () => {
+      try {
+        const response = await api.get("/dashboard/stats");
+        console.log(response.data,"stats");
+        setdashboardStats(() => {
+          return [
+            { title: "Total Blog Posts", value: response.data.Blogcnt, icon: <BlogIcon />, color: "#10b981" },
+            { title: "Newsletter Subscribers", value: response.data.NewsLettercnt, icon: <NewsletterIcon />, color: "#3b82f6" },
+            { title: "Contact Messages", value: response.data.Contactcnt, icon: <ContactsIcon />, color: "#8b5cf6" },
+            { title: "Unread Messages", value: response.data.Unreadcnt, icon: <ContactsIcon />, color: "#f59e0b" },
+          ]
+        })
+    
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getDashboardStats();
+  }, []);
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
@@ -116,7 +154,7 @@ const AdminDashboard = () => {
                   Admin Dashboard
                 </Typography>
                 <Typography variant="body1" sx={{ opacity: 0.9, mt: 0.5 }}>
-                  Welcome back, {adminUser?.name || adminUser?.email}
+                  Welcome back, {adminUser}
                 </Typography>
               </div>
             </div>

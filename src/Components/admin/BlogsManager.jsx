@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+
+import { api } from '../../utils';
 
 // API base (adjust path segments if your backend uses a different route prefix)
-export const api = axios.create({ baseURL: 'http://localhost:4000' });
+
 
 // API helpers
 const fetchBlogsApi = () => api.get('/blogs');
@@ -136,6 +137,7 @@ const BlogsManager = () => {
     }
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.title || isEmptyContent(form.content) || !form.description || !form.image || !form.category || form.tags.length === 0) {
