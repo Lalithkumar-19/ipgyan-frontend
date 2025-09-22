@@ -5,24 +5,27 @@ const DisclaimerModal = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Always show the disclaimer when component mounts
-    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    // Prevent scrolling on both html and body elements
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
     
     // Cleanup function to re-enable scrolling when component unmounts
     return () => {
+      document.documentElement.style.overflow = 'auto';
       document.body.style.overflow = 'auto';
     };
   }, []);
 
   const handleClose = () => {
     setIsVisible(false);
+    document.documentElement.style.overflow = 'auto';
     document.body.style.overflow = 'auto'; // Re-enable scrolling
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/40 bg-opacity-70 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg max-w-3xl w-full max-h-[80vh] overflow-y-auto relative">
         <div className="sticky top-0 bg-white p-4 flex justify-between items-center border-b">
           <h2 className="text-xl font-bold text-gray-800">Disclaimer</h2>
@@ -35,8 +38,8 @@ const DisclaimerModal = () => {
           </button>
         </div>
         <div className="p-6 text-gray-700">
-          <p className="mb-4">
-            Welcome to IPGyan! Before you proceed, please take a moment to read the following important information:
+          <p className="mb-4 font-ineria">
+            Welcome to IPGYAN! Before you proceed, please take a moment to read the following important information:
           </p>
           <p className="mb-4">
             The content on this website is provided for general informational purposes only and does not constitute legal advice. The information provided on this site is not a substitute for professional legal consultation.
@@ -57,10 +60,10 @@ const DisclaimerModal = () => {
             By clicking "I Agree" below, you acknowledge that you have read and understood this disclaimer and agree to be bound by its terms.
           </p>
         </div>
-        <div className="cursor-pointer p-4 bg-gray-50 flex justify-end">
+        <div className="p-4 bg-gray-50 flex justify-end">
           <button
             onClick={handleClose}
-            className="cursor-pointer px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
           >
             I Agree
           </button>
