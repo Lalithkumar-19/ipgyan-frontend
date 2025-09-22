@@ -54,7 +54,7 @@ const DisclaimerModal = () => {
             Through this website, you are able to link to other websites which are not under our control. We have no control over the nature, content, and availability of those sites. The inclusion of any links does not necessarily imply a recommendation or endorse the views expressed within them.
           </p>
           <p className="mb-4">
-            Every effort is made to keep the website up and running smoothly. However, IP Gyan takes no responsibility for, and will not be liable for, the website being temporarily unavailable due to technical issues beyond our control.
+            Every effort is made to keep the website up and running smoothly. However, IPGyAN takes no responsibility for, and will not be liable for, the website being temporarily unavailable due to technical issues beyond our control.
           </p>
           <p>
             By clicking "I Agree" below, you acknowledge that you have read and understood this disclaimer and agree to be bound by its terms.
