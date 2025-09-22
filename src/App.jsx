@@ -11,12 +11,13 @@ import PracticeAreas from './Pages/PracticeAreas';
 import ContactUs from './Pages/ContactUs';
 import AdminLogin from './Pages/AdminLogin';
 import AdminDashboard from './Pages/AdminDashboard';
+import DisclaimerModal from './Components/DisclaimerModal';
 
 function App() {
   return (
     <Router>
-
-      <div className='flex flex-col w-full overflow-x-hidden  '>
+      <div className='flex flex-col w-full overflow-x-hidden'>
+        <DisclaimerModal />
         <Navbar />
         <div className='flex flex-col w-full mt-15' >
           <Routes>
@@ -25,20 +26,14 @@ function App() {
             <Route path='/blog' element={<Blogs />} />
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/practiceareas" element={<Services />} />
-            {/* <Route path="/practiceareas" element={<PracticeAr />} /> */}
+            {/* <Route path="/practiceareas" element={<PracticeAr />} */} 
             <Route path="/contact" element={<ContactUs />} />
-
             <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={
-
-              <AdminDashboard />
-
-            } />
+            <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </div>
         <Footer />
       </div>
-
     </Router>
   )
 }

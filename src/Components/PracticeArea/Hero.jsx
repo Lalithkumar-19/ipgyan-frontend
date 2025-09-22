@@ -66,7 +66,7 @@ const Hero = () => {
           backgroundImage: "url('https://www.shimodalaw.com/wp-content/uploads/employment-lawyer.jpg')"
         }}
       >
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/50"></div>
         {/* <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div> */}
       </div>
 
@@ -91,7 +91,11 @@ const Hero = () => {
             Comprehensive legal services tailored to your specific needs and circumstances
           </p>
           <div className='flex flex-row w-full'>
-            <button className='bg-amber-400 text-white w-[300px] h-[70px] font-bold text-base lg:text-lg cursor-pointer px-3 py-1.5 lg:px-4 lg:py-2 rounded transition-all hover:bg-[#e5a00d] active:scale-95'>
+            <button 
+            onClick={()=>{
+              document.getElementById("services").scrollIntoView({ behavior: "smooth" });
+            }}
+            className='bg-amber-400 text-white w-[300px] h-[70px] font-bold text-base lg:text-lg cursor-pointer px-3 py-1.5 lg:px-4 lg:py-2 rounded transition-all hover:bg-[#e5a00d] active:scale-95'>
               See Our Practice Areas
             </button>
 

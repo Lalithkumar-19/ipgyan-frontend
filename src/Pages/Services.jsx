@@ -1,7 +1,7 @@
 import React from 'react';
 import { CheckCircle, Award, Users, Briefcase, Clock, Shield, Phone, Calendar, Gavel, Handshake, Scale, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Hero from '../Components/Services/Hero';
+import Hero from '../Components/PracticeArea/Hero';
 import ServicesSection from '../Components/Services/ServicesSection';
 import IndustriesSection from '../Components/Services/IndustriesSection';
 import WhyChooseUs from '../Components/Services/WhyChooseUs';
@@ -14,6 +14,7 @@ const Services = () => {
     return (
         <div className="min-h-screen scroll-smooth -mt-10">
 
+            {/* <Hero /> */}
             <Hero />
             <ServicesSection />
             <IndustriesSection />

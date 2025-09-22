@@ -79,7 +79,7 @@ const ServicesSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Our <span className="text-amber-400">Services</span>
+            Our <span className="text-amber-400">practice Areas</span>
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
             We offer a comprehensive range of legal and professional services to meet all your needs. 
